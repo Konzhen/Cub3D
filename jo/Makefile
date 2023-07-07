@@ -17,7 +17,7 @@ MY_SOURCES = 	main_test.c 					\
 				parsing/checker/checker_utils.c	\
 
 
-MY_OBJECTS = $(MY_SOURCES:.c=.o)
+MY_OBJECTS = $(MY_SOURCES:%.c=%.o)
 
 CC = clang
 
@@ -26,10 +26,9 @@ CFLAGS = -Wall -Werror -Wextra -g
 all : $(NAME)
 
 $(NAME): $(MY_OBJECTS)
-	make -C minilibx-linux
 	make -C ../libft/
 	cmake MLX42 -B MLX42/build && make -C MLX42/build -j4
-	$(CC) $(CFLAGS) -o $(NAME) $(MY_OBJECTS) -Iincludes/ -I/usr/include MLX42/build/libmlx42.a MLX42/build/libMLX42.a -ldl -lglfw -pthread -lm -Llibft
+	$(CC) $(CFLAGS) -L ../libft -I ../libft $(MY_OBJECTS) -l:../libft/libft.a -I/usr/include MLX42/build/libmlx42.a -ldl -lglfw -pthread -lm -o $(NAME)
 
 clean:
 	rm -f $(MY_OBJECTS)
