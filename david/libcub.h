@@ -26,8 +26,6 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include "MLX42/include/MLX42/MLX42_Int.h"
-# include "minilibx-linux/mlx.h"
-# include "X11/X.h"
 # include <stdio.h>
 # include <stdbool.h>
 

@@ -6,12 +6,12 @@
 /*   By: dafranco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 15:14:09 by dafranco          #+#    #+#             */
-/*   Updated: 2023/07/07 15:42:07 by dafranco         ###   ########.fr       */
+/*   Updated: 2023/07/07 17:44:27 by dafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include"libcub.h"
 
-static ssize_t get_mapsize_y(const char **blueprint)
+/*static ssize_t get_mapsize_y(const char **blueprint)
 {
 	ssize_t	i;
 
@@ -44,3 +44,4 @@ static char	**map_len(const char **blueprint)
 		i++;
 	}
 }
+*/
