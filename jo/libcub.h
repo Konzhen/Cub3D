@@ -22,6 +22,12 @@
 //--------------------------------------------------------------------------//
 
 # include "../libft/libft.h"
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <fcntl.h>
+//# include "MLX42/include/MLX42/MLX42_Int.h"
+# include "minilibx-linux/mlx.h"
+# include "X11/X.h"
 # include <stdio.h>
 # include <stdbool.h>
 
@@ -50,6 +56,9 @@ int		stocker(int i);
 bool	checker(char *argv_1);
 
 //	checker_utils.c
+bool    check_color_format(char *line, int *i);
+bool    check_texture_line(char *line, char *tex, int fd);
 char	*skip_empty_line(int fd);
+char    *get_next_valid_line(int fd);
 
 #endif
