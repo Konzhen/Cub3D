@@ -6,14 +6,15 @@
 #    By: dafranco <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/05 14:46:14 by dafranco          #+#    #+#              #
-#    Updated: 2023/03/28 17:44:30 by dafranco         ###   ########.fr        #
+#    Updated: 2023/07/08 19:36:47 by dafranco         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3d
 
 MY_SOURCES = 	main.c 		\
-		map_init.c
+		map_init.c			\
+		map_fill.c
 
 
 MY_OBJECTS = $(MY_SOURCES:%.c=%.o)
