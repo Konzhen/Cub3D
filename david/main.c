@@ -6,7 +6,7 @@
 /*   By: dafranco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 17:07:38 by dafranco          #+#    #+#             */
-/*   Updated: 2023/07/10 12:07:32 by dafranco         ###   ########.fr       */
+/*   Updated: 2023/07/11 01:05:55 by dafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,33 +84,33 @@ void ft_hook(void* param)
 
 int32_t	main(int argc, char **argv)
 {
-	t_vars	mlx;
+	t_vars	*mlx;
 
 	(void)argc;
-	(void)argv;
-	mlx.map = map_len(argv[1]);
+	mlx = malloc(sizeof(t_vars));
+	mlx->map = map_len(argv[1]);
 //	return (0);
-	mlx.mlx_ptr = mlx_init(WIDTH, HEIGHT, "MLX42", true);
-	if (!(image = mlx_new_image(mlx.mlx_ptr, 9, 90)))
+	mlx->mlx_ptr = mlx_init(WIDTH, HEIGHT, "MLX42", true);
+	if (!(image = mlx_new_image(mlx->mlx_ptr, 9, 90)))
 	{
-		mlx_close_window(mlx.mlx_ptr);
+		mlx_close_window(mlx->mlx_ptr);
 		puts(mlx_strerror(mlx_errno));
 		return(EXIT_FAILURE);
 	}
-	if (mlx_image_to_window(mlx.mlx_ptr, image, 0, 0) == -1)
+	if (mlx_image_to_window(mlx->mlx_ptr, image, 0, 0) == -1)
 	{
-		mlx_close_window(mlx.mlx_ptr);
+		mlx_close_window(mlx->mlx_ptr);
 		puts(mlx_strerror(mlx_errno));
 		return(EXIT_FAILURE);
 	}
-	image2 = mlx_new_image(mlx.mlx_ptr, 90, 90);
-	mlx_image_to_window(mlx.mlx_ptr, image2, 0, 0);
-	draw_map();
-	mlx_loop_hook(mlx.mlx_ptr, ft_randomize, mlx.mlx_ptr);
-	mlx_loop_hook(mlx.mlx_ptr, ft_hook, mlx.mlx_ptr);
-	mlx_loop_hook(mlx.mlx_ptr, ft_cage, mlx.mlx_ptr);
-	mlx_loop(mlx.mlx_ptr);
-	mlx_terminate(mlx.mlx_ptr);
+	image2 = mlx_new_image(mlx->mlx_ptr, 90, 90);
+	mlx_image_to_window(mlx->mlx_ptr, image2, 0, 0);
+	draw_map(*mlx);
+	mlx_loop_hook(mlx->mlx_ptr, ft_randomize, mlx->mlx_ptr);
+	mlx_loop_hook(mlx->mlx_ptr, ft_hook, mlx->mlx_ptr);
+	mlx_loop_hook(mlx->mlx_ptr, ft_cage, mlx->mlx_ptr);
+	mlx_loop(mlx->mlx_ptr);
+	mlx_terminate(mlx->mlx_ptr);
 	return (EXIT_SUCCESS);
 }
 
@@ -120,8 +120,7 @@ static char	**map_init(char **blueprint, size_t y)
 	int		i;
 
 	i = 0;
-	map = NULL;
-	while (blueprint[i])
+	while (i < (int)y)
 	{
 		fill_tab(blueprint, &map, y);
 		i++;
@@ -138,16 +137,16 @@ static char	**map_cpy(int fd, size_t x, size_t y)
 
 	i = 0;
 	cpy = NULL;
-	map = (char **)malloc((sizeof(char *) * y) + 1);
+	map = (char **)malloc((sizeof(char **) * y) + 1);
 	if (!map)
 		return (NULL);
 	while (i < (int)y)
 	{
-		map[i] = ft_calloc(sizeof(char *), x + 1);
+		map[i] = ft_calloc(sizeof(char *), x);
 		map[i] = strdup(get_next_line(fd));
 		i++;
 	}
-	map[i] = NULL;
+	map[y + 1] = NULL;
 	cpy = map_init(map, y);
 	return (map);
 }

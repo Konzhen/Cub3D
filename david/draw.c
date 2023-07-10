@@ -6,44 +6,39 @@
 /*   By: dafranco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 10:12:53 by dafranco          #+#    #+#             */
-/*   Updated: 2023/07/10 12:04:24 by dafranco         ###   ########.fr       */
+/*   Updated: 2023/07/11 01:11:38 by dafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libcub.h"
 
 static mlx_image_t	*all;
 
-void	draw_map(void)
+void	draw_map(t_vars mlx)
 {
-	t_vars	mlx;
-
-	all = mlx_new_image(mlx.mlx_ptr, 100, 100);
+	all = mlx_new_image(mlx.mlx_ptr, 1000, 1000);
 	mlx_image_to_window(mlx.mlx_ptr, all, 0, 0);
-	mlx_loop_hook(mlx.mlx_ptr, draw_all, mlx.mlx_ptr);
+	mlx_loop_hook(mlx.mlx_ptr, draw_all, mlx.map);
 }
 
-void	draw_all(void *param)
+void	draw_all(void *mapcpy)
 {
 	uint32_t	x;
 	uint32_t	y;
-	char		**map;
-	t_vars		cpy;
+	char 		**map = mapcpy;
 
-	(void)param;
 	x = 0;
 	y = 0;
-	map = cpy.map;
-	while (map[y])
+	while (map[y] != NULL)
 	{
-		while (*map[x])
+		while (map[y][x] != '\n' && map[y][x] != '\0')
 		{
 			if (map[y][x] == '1')
 				mlx_put_pixel(all, y, x, 0xBB);
 			else
 				mlx_put_pixel(all, y, x, 0xBB00AA);
-			++y;
+			++x;
 		}
-		++x;
-		y = 0;
+		++y;
+		x = 0;
 	}
 }

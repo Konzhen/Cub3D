@@ -6,7 +6,7 @@
 /*   By: dafranco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 14:38:40 by dafranco          #+#    #+#             */
-/*   Updated: 2023/07/10 11:49:27 by dafranco         ###   ########.fr       */
+/*   Updated: 2023/07/11 00:45:57 by dafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	fill_tab(char **blueprint, char ***tab, size_t y);
 char	*fill_line(const char *str);
 
 //	draw.c
-void	draw_map(void);
-void	draw_all(void *param);
+void	draw_map(t_vars mlx);
+void	draw_all(void *);
 
 #endif

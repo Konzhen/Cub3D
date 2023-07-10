@@ -6,7 +6,7 @@
 /*   By: dafranco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 19:20:33 by dafranco          #+#    #+#             */
-/*   Updated: 2023/07/08 20:16:49 by dafranco         ###   ########.fr       */
+/*   Updated: 2023/07/11 00:06:47 by dafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	fill_tab(char **blueprint, char ***tab, size_t y)
 	j = 0;
 	k = 0;
 	len = (y * 9) + 1;
-	(*tab) = (char **)malloc(1 + ((y * 9) * sizeof(char *)));
+	(*tab) = (char **)malloc((y * 9) * sizeof(char **) + 1);
 	if (!tab)
 		return ;
 	while (j < (int)y)
@@ -66,5 +66,4 @@ void	fill_tab(char **blueprint, char ***tab, size_t y)
 		i = 0;
 		j++;
 	}
-	(*tab)[len] = NULL;
 }
