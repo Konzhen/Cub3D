@@ -6,7 +6,7 @@
 /*   By: dafranco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 14:38:40 by dafranco          #+#    #+#             */
-/*   Updated: 2023/07/08 20:37:32 by dafranco         ###   ########.fr       */
+/*   Updated: 2023/07/10 11:49:27 by dafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,14 @@
 //--------------------------------------------------------------------------//
 typedef struct s_vars
 {
-	void	*mlx_ptr;
-	void	*win_ptr;
-	char	**map;
-	char	*title;
-	int		x;
-	int		y;
-	int		width;
-	int		height;
+	void				*mlx_ptr;
+	void				*win_ptr;
+	char				**map;
+	char				*title;
+	int					x;
+	int					y;
+	int					width;
+	int					height;
 }t_vars;
 //--------------------------------------------------------------------------//
 //	-							FUNCTIONS									//
@@ -73,5 +73,9 @@ char    *get_next_valid_line(int fd);
 //	map_fill.c
 void	fill_tab(char **blueprint, char ***tab, size_t y);
 char	*fill_line(const char *str);
+
+//	draw.c
+void	draw_map(void);
+void	draw_all(void *param);
 
 #endif

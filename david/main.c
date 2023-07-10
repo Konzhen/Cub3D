@@ -6,10 +6,11 @@
 /*   By: dafranco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 17:07:38 by dafranco          #+#    #+#             */
-/*   Updated: 2023/07/08 20:58:39 by dafranco         ###   ########.fr       */
+/*   Updated: 2023/07/10 12:07:32 by dafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "MLX42/include/MLX42/MLX42.h"
 #include "libcub.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -20,13 +21,14 @@ static char	**map_cpy(int fd, size_t x, size_t y);
 static char	**map_init(char **blueprint, size_t y);
 
 static mlx_image_t* image;
+static mlx_image_t* image2;
 
 int32_t ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
 {
     return (r << 24 | g << 16 | b << 8 | a);
 }
 
-void ft_randomize(void* param)
+void ft_randomize(void *param)
 {
 	(void)param;
 	for (uint32_t i = 0; i < image->width; ++i)
@@ -34,13 +36,33 @@ void ft_randomize(void* param)
 		for (uint32_t y = 0; y < image->height; ++y)
 		{
 			uint32_t color = ft_pixel(
-				rand() % 0xFF, // R
-				rand() % 0xFF, // G
-				rand() % 0xFF, // B
-				rand() % 0xFF  // A
+				0xBB, // R
+				0xBB, // G
+				0xBB, // B
+				0xBB  // A
 			);
 			mlx_put_pixel(image, i, y, color);
 		}
+	}
+}
+
+void	ft_cage(void *param)
+{
+	uint32_t	i;
+	uint32_t	y;
+
+	(void)param;
+	i = 0;
+	y = 0;
+	while (i < image2->width)
+	{
+		while (y < image2->height)
+		{
+			mlx_put_pixel(image2, i, y, 0xBB00AA);
+			++y;
+		}
+		++i;
+		y = 0;
 	}
 }
 
@@ -62,38 +84,33 @@ void ft_hook(void* param)
 
 int32_t	main(int argc, char **argv)
 {
-	t_vars	ptr;
+	t_vars	mlx;
 
 	(void)argc;
 	(void)argv;
-	ptr.map = map_len(argv[1]);
+	mlx.map = map_len(argv[1]);
 //	return (0);
-	mlx_t* mlx;
-
-	// Gotta error check this stuff
-	if (!(mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true)))
+	mlx.mlx_ptr = mlx_init(WIDTH, HEIGHT, "MLX42", true);
+	if (!(image = mlx_new_image(mlx.mlx_ptr, 9, 90)))
 	{
+		mlx_close_window(mlx.mlx_ptr);
 		puts(mlx_strerror(mlx_errno));
 		return(EXIT_FAILURE);
 	}
-	if (!(image = mlx_new_image(mlx, 128, 128)))
+	if (mlx_image_to_window(mlx.mlx_ptr, image, 0, 0) == -1)
 	{
-		mlx_close_window(mlx);
+		mlx_close_window(mlx.mlx_ptr);
 		puts(mlx_strerror(mlx_errno));
 		return(EXIT_FAILURE);
 	}
-	if (mlx_image_to_window(mlx, image, 0, 0) == -1)
-	{
-		mlx_close_window(mlx);
-		puts(mlx_strerror(mlx_errno));
-		return(EXIT_FAILURE);
-	}
-	
-	mlx_loop_hook(mlx, ft_randomize, mlx);
-	mlx_loop_hook(mlx, ft_hook, mlx);
-
-	mlx_loop(mlx);
-	mlx_terminate(mlx);
+	image2 = mlx_new_image(mlx.mlx_ptr, 90, 90);
+	mlx_image_to_window(mlx.mlx_ptr, image2, 0, 0);
+	draw_map();
+	mlx_loop_hook(mlx.mlx_ptr, ft_randomize, mlx.mlx_ptr);
+	mlx_loop_hook(mlx.mlx_ptr, ft_hook, mlx.mlx_ptr);
+	mlx_loop_hook(mlx.mlx_ptr, ft_cage, mlx.mlx_ptr);
+	mlx_loop(mlx.mlx_ptr);
+	mlx_terminate(mlx.mlx_ptr);
 	return (EXIT_SUCCESS);
 }
 
