@@ -46,12 +46,10 @@ void	fill_tab(char **blueprint, char ***tab, size_t y)
 	int	i;
 	int	j;
 	int	k;
-	int	len;
 
 	i = 0;
 	j = 0;
 	k = 0;
-	len = (y * 9) + 1;
 	(*tab) = (char **)malloc((y * 9) * sizeof(char **) + 1);
 	if (!tab)
 		return ;

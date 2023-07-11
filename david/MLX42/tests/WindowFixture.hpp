@@ -5,8 +5,8 @@
 
 # pragma once
 
-# include "../include/gtest/gtest.h"
-# include "../include/MLX42/MLX42.h"
+# include <gtest/gtest.h>
+# include <MLX42/MLX42.h>
 
 class Window : public ::testing::Test
 {

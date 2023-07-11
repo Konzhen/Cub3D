@@ -18,6 +18,7 @@
 //--------------------------------------------------------------------------//
 # define WIDTH 256
 # define HEIGHT 256
+# define PI	3.1415926535
 //--------------------------------------------------------------------------//
 //	- 							INCLUDES									//
 //--------------------------------------------------------------------------//
@@ -29,6 +30,7 @@
 # include "MLX42/include/MLX42/MLX42_Int.h"
 # include <stdio.h>
 # include <stdbool.h>
+# include <math.h>
 
 //--------------------------------------------------------------------------//
 //	- 							VARIABLES									//
@@ -78,4 +80,7 @@ char	*fill_line(const char *str);
 void	draw_map(t_vars mlx);
 void	draw_all(void *);
 
+//	main.c
+void	draw_player(t_vars *mlx);
+	
 #endif

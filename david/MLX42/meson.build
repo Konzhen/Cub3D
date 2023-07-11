@@ -4,7 +4,8 @@ glfw_dep = dependency('glfw3')
 
 inc = include_directories('include')
 
-file = ['src/font/mlx_font.c',
+static_library('MLX42',
+  'src/font/mlx_font.c',
   'src/mlx_cursor.c',
   'src/mlx_exit.c',
   'src/mlx_images.c',
@@ -21,11 +22,7 @@ file = ['src/font/mlx_font.c',
   'src/utils/mlx_compare.c',
   'src/utils/mlx_error.c',
   'src/utils/mlx_list.c',
-  'src/utils/mlx_utils.c']
-
-
-static_library('MLX42',
-  file,
+  'src/utils/mlx_utils.c',
   dependencies: glfw_dep,
   include_directories : inc,
   install : true)
