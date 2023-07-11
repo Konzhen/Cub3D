@@ -6,7 +6,7 @@
 /*   By: dafranco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 10:12:53 by dafranco          #+#    #+#             */
-/*   Updated: 2023/07/11 01:11:38 by dafranco         ###   ########.fr       */
+/*   Updated: 2023/07/11 16:09:05 by dafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libcub.h"
@@ -34,8 +34,6 @@ void	draw_all(void *mapcpy)
 		{
 			if (map[y][x] == '1')
 				mlx_put_pixel(all, y, x, 0xBB);
-			else
-				mlx_put_pixel(all, y, x, 0xBB00AA);
 			++x;
 		}
 		++y;
