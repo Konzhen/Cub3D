@@ -6,7 +6,7 @@
 /*   By: dafranco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 14:38:40 by dafranco          #+#    #+#             */
-/*   Updated: 2023/07/11 00:45:57 by dafranco         ###   ########.fr       */
+/*   Updated: 2023/07/12 22:26:19 by dafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,5 +82,8 @@ void	draw_all(void *);
 
 //	main.c
 void	draw_player(t_vars *mlx);
-	
+
+//	draw_ray.c
+void draw_line(void *param);
+
 #endif

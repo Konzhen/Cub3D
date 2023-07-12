@@ -6,7 +6,7 @@
 /*   By: dafranco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 17:07:38 by dafranco          #+#    #+#             */
-/*   Updated: 2023/07/11 18:03:37 by dafranco         ###   ########.fr       */
+/*   Updated: 2023/07/12 22:29:25 by dafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static char	**map_init(char **blueprint, size_t y);
 
 static mlx_image_t* player;
 static mlx_image_t* vision;
+static mlx_image_t* line;
 static float player_x;
 static float player_y;
 static float dir_x;
@@ -132,6 +133,9 @@ int32_t	main(int argc, char **argv)
 	dir_y = sin(angle) * 5;
 	draw_map(*mlx);
 	draw_player(mlx);
+	line = mlx_new_image(mlx->mlx_ptr, 0, 0);
+	mlx_image_to_window(mlx->mlx_ptr, line, 0, 0);
+	mlx_loop_hook(mlx->mlx_ptr, draw_line, line);
 	mlx_loop_hook(mlx->mlx_ptr, ft_player, mlx->mlx_ptr);
 	mlx_loop_hook(mlx->mlx_ptr, ft_vision, mlx->mlx_ptr);
 	mlx_loop_hook(mlx->mlx_ptr, ft_move, mlx->mlx_ptr);

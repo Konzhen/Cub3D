@@ -6,7 +6,7 @@
 #    By: dafranco <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/05 14:46:14 by dafranco          #+#    #+#              #
-#    Updated: 2023/07/10 11:44:57 by dafranco         ###   ########.fr        #
+#    Updated: 2023/07/12 21:57:25 by dafranco         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ MY_SOURCES = 	main.c 		\
 		map_init.c			\
 		map_fill.c			\
 		draw.c				\
+		draw_ray.c				\
 
 
 MY_OBJECTS = $(MY_SOURCES:%.c=%.o)
