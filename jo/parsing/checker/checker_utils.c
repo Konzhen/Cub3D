@@ -6,38 +6,83 @@
 /*   By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 17:55:05 by jbutte            #+#    #+#             */
-/*   Updated: 2023/07/07 16:04:32 by jbutte           ###   ########.fr       */
+/*   Updated: 2023/07/13 17:46:11 by jbutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../libcub.h"  
 
-bool    check_color_format(char *line, int *i)
+static char*    get_texture_path(char *line, int *i)
+{
+    size_t  size;
+    size_t     j;
+    char    *tex_path;
+
+    size = 0;
+    j = *i;
+    while (((line[j] < 7 || line[j] > 13) && line[j] != ' ') && line[j])
+    {
+        j++;
+        size++;
+    }
+    tex_path = ft_calloc(size + 1, sizeof(char));
+    if (!tex_path)
+        return (NULL);
+    j = 0;
+    while (j < size)
+    {
+        tex_path[j] = line[*i];
+        j++;
+        (*i)++;
+    }
+    return (tex_path);
+}
+
+static char    *skip_empty_line(int fd)
+{
+    char    *line;
+    
+    line = get_next_line(fd);
+    if (!line)
+        return (NULL);
+    if (!ft_strncmp(line, "EMPTY", 5))
+    {
+        free(line);
+        return (NULL);
+    }
+    if (skip_spaces(line, NULL) == -1)
+    {
+        free(line);
+        line = ft_strdup("EMPTY");
+        return (line);
+    }
+    return (line);
+}
+
+bool    check_color_format(char *line, int *i, bool last)
 {
     int color;
 
     skip_spaces(line, i);
     color = ft_atoi(&line[*i]);
     if (color < 0 || color > 255)
-    {
-        free(line);
         return (false);
-    }
     while (line[*i] >= '0' && line[*i] <= '9')
         (*i)++;
-    if (line[*i] != ',')
-    {
-        free(line);
-        return (false);
+    if (!last)
+    {    
+        if (line[*i] != ',')
+            return (false);
     }
     (*i)++;
     return (true);
 }
 
-bool    check_texture_line(char *line, char *tex, int fd)
+bool    check_texture_line(char *line, char *tex)
 {
-    int tmp;
-    int i;
+    char    *tex_path;
+    int     tmp;
+    int     i;
 
     i = 0;
     skip_spaces(line, &i);
@@ -45,39 +90,27 @@ bool    check_texture_line(char *line, char *tex, int fd)
         return (false);
     i += 2;
     skip_spaces(line, &i);
-    tmp = open(&line[i], O_RDONLY);
+    tex_path = get_texture_path(line, &i);
+    if (!tex_path || check_ext(tex_path, ".jpg"))
+    {
+        free(tex_path);
+        return (false);
+    }
+    tmp = open(tex_path, O_RDONLY);
     if (tmp == -1)
     {
-        free(line);
+        free(tex_path);
         return (false);
     }
+    free(tex_path);
     close(tmp);
-    free(line);
-    line = get_next_valid_line(fd);
-    if (!line)
-        return (false);
     return (true);
-}
-
-char    *skip_empty_line(int fd)
-{
-    char    *line;
-
-    line = get_next_valid_line(fd);
-    if (!line)
-        return (NULL);
-    if (!skip_spaces(line, NULL))
-    {
-        free(line);
-        return ("EMPTY");
-    }
-    return (line);
 }
 
 char    *get_next_valid_line(int fd)
 {
     char    *line;
-
+    
     line = skip_empty_line(fd);
     if (!line)
         return (NULL);

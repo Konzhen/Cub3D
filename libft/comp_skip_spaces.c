@@ -20,10 +20,10 @@ int	skip_spaces(const char *line, int *i)
 	if (!i)
 		i = &j;
 	if (!line || !line[*i])
-		return (0);
+		return (-2);
 	while ((line[*i] >= 7 && line[*i] <= 13) || line[*i] == ' ')
 		(*i)++;
 	if (!line[*i])
-		return (0);
+		return (-1);
 	return (*i);
 }
