@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libcub.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dafranco <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 14:38:40 by dafranco          #+#    #+#             */
-/*   Updated: 2023/06/29 15:35:03 by dafranco         ###   ########.fr       */
+/*   Updated: 2023/07/22 18:44:10 by jbutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@
 //--------------------------------------------------------------------------//
 
 # include "../libft/libft.h"
-# include <sys/types.h>
-# include <sys/stat.h>
 # include <fcntl.h>
+# include <sys/stat.h>
+# include <sys/types.h>
 //# include "MLX42/include/MLX42/MLX42_Int.h"
-# include <stdio.h>
 # include <stdbool.h>
+# include <stdio.h>
 
 //--------------------------------------------------------------------------//
 //	- 							VARIABLES									//
@@ -50,12 +50,30 @@ int		stocker(int i);
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~./parsing/checker/
 
-//	checker_.c
-bool	checker(char *argv_1);
+//	checker.c
+char	**checker(char *argv_1);
 
 //	checker_utils.c
-bool    check_color_format(char *line, int *i, bool last);
-bool    check_texture_line(char *line, char *tex);
-char    *get_next_valid_line(int fd);
+bool	check_residue(char *line);
+bool	check_color_format(char *line, int *i, bool last);
+char	*get_next_valid_line(int fd);
+
+//	checker_texture.c
+bool	check_texture_line(char *line, char *tex);
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~./parsing/checker/chercker_tab/
+
+//	checker_get_tab.c
+char	**get_raw_tab(int fd, char *argv_1);
+char	**get_tab(char **tab);
+
+//	checker_tab.c
+bool	check_tab(char **tab);
+
+// checker_lines_and_columns.c
+bool	check_columns(char **tab);
+bool	check_lines(char **tab);
+
+int		main(int argc, char **argv);
 
 #endif

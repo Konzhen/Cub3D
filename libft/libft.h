@@ -91,7 +91,7 @@ char	check_next_char(char *src, char *str);
 char	**strdup_tab(char **tab);
 char	*tplstr_join(const char *s1, const char *s2, const char *s3);
 char	*rmvchar_str(const char *src, char c);
-void	err_std(char *msg);
+int		err_std(char *msg);
 void	err_cmd_bash(char *cmd);
 void	err_syntax_bash(char *cmd);
 int		check_argc(int argc, unsigned int min, unsigned int max);

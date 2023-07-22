@@ -3,18 +3,22 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dafranco <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/05 14:46:14 by dafranco          #+#    #+#              #
-#    Updated: 2023/03/28 17:44:30 by dafranco         ###   ########.fr        #
+#    Updated: 2023/07/22 18:45:23 by jbutte           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3d
 
-MY_SOURCES = 	main_test.c 					\
-				parsing/checker/checker.c		\
-				parsing/checker/checker_utils.c	\
+MY_SOURCES = 	main_test.c 											\
+				parsing/checker/checker.c								\
+				parsing/checker/checker_utils.c							\
+				parsing/checker/checker_texture.c						\
+				parsing/checker/checker_tab/checker_get_tab.c			\
+				parsing/checker/checker_tab/checker_tab.c				\
+				parsing/checker/checker_tab/checker_lines_and_columns.c	\
 
 
 MY_OBJECTS = $(MY_SOURCES:%.c=%.o)

@@ -11,11 +11,10 @@
 /* ************************************************************************** */
 #include "libft.h"
 
-void	err_std(char *msg)
+int	err_std(char *msg)
 {
-	if (!msg)
-		return ;
 	write(2, "Error\n", 6);
 	write(2, msg, ft_strlen(msg) + 1);
 	write(2, "\n", 1);
+	return (1);
 }
