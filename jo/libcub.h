@@ -6,7 +6,7 @@
 /*   By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 14:38:40 by dafranco          #+#    #+#             */
-/*   Updated: 2023/07/23 18:50:31 by jbutte           ###   ########.fr       */
+/*   Updated: 2023/07/23 19:25:50 by jbutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,19 @@
 //--------------------------------------------------------------------------//
 # define WIDTH 256
 # define HEIGHT 256
-# define PI	3.1415926535
+# define PI 3.1415926535
 //--------------------------------------------------------------------------//
 //	- 							INCLUDES									//
 //--------------------------------------------------------------------------//
 
 # include "../libft/libft.h"
-# include <sys/types.h>
-# include <sys/stat.h>
-# include <fcntl.h>
 # include "MLX42/include/MLX42/MLX42_Int.h"
-# include <stdio.h>
-# include <stdbool.h>
+# include <fcntl.h>
 # include <math.h>
+# include <stdbool.h>
+# include <stdio.h>
+# include <sys/stat.h>
+# include <sys/types.h>
 
 //--------------------------------------------------------------------------//
 //	- 							VARIABLES									//
@@ -40,14 +40,14 @@
 //	-							STRUCTURES									//
 //--------------------------------------------------------------------------//
 
-typedef struct s_vars
+typedef struct s_data
 {
 	void				*mlx_ptr;
 	void				*win_ptr;
 	char				*title;
 	struct s_map		map;
 	struct s_player		*player;
-}t_vars;
+}						t_data;
 
 typedef struct s_map
 {
@@ -55,7 +55,7 @@ typedef struct s_map
 	char				**tab;
 	int					width;
 	int					height;
-}t_map;
+}						t_map;
 
 typedef struct s_player
 {
@@ -66,7 +66,7 @@ typedef struct s_player
 	double				lvl_x;
 	double				lvl_y;
 	struct s_ray		*ray;
-}t_player;
+}						t_player;
 
 typedef struct s_ray
 {
@@ -75,57 +75,57 @@ typedef struct s_ray
 	double				dir_y;
 	double				side_x;
 	double				side_y;
-}t_ray;
+}						t_ray;
 
 //--------------------------------------------------------------------------//
 //	-							FUNCTIONS									//
 //--------------------------------------------------------------------------//
 
-int		render(int params, char **argv);
-bool	parser(int argc, char **argv);
-int		init(int argc, char **argv);
-int		scanlines(int pos_player, int pos_map);
-int		error(int i);
-int		stocker(int i);
+int						render(int params, char **argv);
+bool					parser(int argc, char **argv);
+int						init(int argc, char **argv);
+int						scanlines(int pos_player, int pos_map);
+int						error(int i);
+int						stocker(int i);
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~./parsing/checker/
 
 //	checker.c
-char	**checker(char *argv_1);
+char					**checker(char *argv_1);
 
 //	checker_utils.c
-bool	check_residue(char *line);
-bool	check_color_format(char *line, int *i, bool last);
-char	*get_next_valid_line(int fd);
+bool					check_residue(char *line);
+bool					check_color_format(char *line, int *i, bool last);
+char					*get_next_valid_line(int fd);
 
 //	checker_texture.c
-bool	check_texture_line(char *line, char *tex);
+bool					check_texture_line(char *line, char *tex);
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~./parsing/checker/chercker_tab/
 
 //	checker_get_tab.c
-char	**get_raw_tab(int fd, char *argv_1);
-char	**get_tab(char **tab);
+char					**get_raw_tab(int fd, char *argv_1);
+char					**get_tab(char **tab);
 
 //	checker_tab.c
-bool	check_tab(char **tab);
+bool					check_tab(char **tab);
 
 // checker_lines_and_columns.c
-bool	check_columns(char **tab);
-bool	check_lines(char **tab);
+bool					check_columns(char **tab);
+bool					check_lines(char **tab);
 
 //	map_fill.c
-void	fill_tab(char **blueprint, char ***tab, size_t y);
-char	*fill_line(const char *str);
+void					fill_tab(char **blueprint, char ***tab, size_t y);
+char					*fill_line(const char *str);
 
 //	draw.c
-void	draw_map(t_vars mlx);
-//void	draw_all(void *);
+void					draw_map(t_data mlx);
+// void	draw_all(void *);
 
 //	main.c
-void	draw_player(t_vars *mlx);
+void					draw_player(t_data *mlx);
 
 //	draw_ray.c
-void	draw_line(void *param);
+void					draw_line(void *param);
 
 #endif

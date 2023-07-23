@@ -6,11 +6,11 @@
 /*   By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 17:46:54 by jbutte            #+#    #+#             */
-/*   Updated: 2023/07/23 18:40:41 by jbutte           ###   ########.fr       */
+/*   Updated: 2023/07/23 22:03:16 by jbutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../libcub.h"
+#include "../libcub.h"
 
 static int	is_right_char(char c)
 {

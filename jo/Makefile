@@ -6,7 +6,7 @@
 #    By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/05 14:46:14 by dafranco          #+#    #+#              #
-#    Updated: 2023/07/22 18:45:23 by jbutte           ###   ########.fr        #
+#    Updated: 2023/07/23 19:10:35 by jbutte           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,9 +20,11 @@ MY_SOURCES = 	main													\
 				parsing/checker/checker.c								\
 				parsing/checker/checker_utils.c							\
 				parsing/checker/checker_texture.c						\
-				parsing/checker/checker_tab/checker_get_tab.c			\
-				parsing/checker/checker_tab/checker_tab.c				\
-				parsing/checker/checker_tab/checker_lines_and_columns.c	\
+				parsing/checker/checker_tab.c							\
+				parsing/checker/checker_lines_and_columns.c				\
+				parsing/data/get_data.c									\
+				parsing/data/get_tab.c									\
+				parsing/data/get_map.c									\
 
 
 MY_OBJECTS = $(MY_SOURCES:%.c=%.o)
