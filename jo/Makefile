@@ -12,7 +12,11 @@
 
 NAME = cub3d
 
-MY_SOURCES = 	main_test.c 											\
+MY_SOURCES = 	main													\
+				map_init.c												\
+				map_fill.c												\
+				draw.c													\
+				draw_ray.c												\
 				parsing/checker/checker.c								\
 				parsing/checker/checker_utils.c							\
 				parsing/checker/checker_texture.c						\

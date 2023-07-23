@@ -6,7 +6,7 @@
 /*   By: dafranco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:55:20 by dafranco          #+#    #+#             */
-/*   Updated: 2023/07/05 15:55:56 by dafranco         ###   ########.fr       */
+/*   Updated: 2023/07/11 01:11:41 by dafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int main(int argc, char **argv)
 		}
 		j = 0;
 		i++;
-	}
+	}/*
 	i = 44;
 	j = 44;
 	grid[i][j] = '@';
@@ -86,6 +86,90 @@ int main(int argc, char **argv)
 		grid[i][j] = ',';
 		j++;
 		i++;
+		grid[i][j] = ',';
+	}*/
+	i = 44;
+	j = 44;
+	grid[i][j] = '@';
+	while (i > 0)
+	{
+		i--;
+		grid[i][j] = ',';
+	}
+	i = 44;
+	while (i > 0)
+	{
+		j--;
+		i--;
+		grid[i][j] = ',';
+	}
+	i = 44;
+	j = 44;
+	while (i > 0)
+	{
+		i--;
+		j++;
+		grid[i][j] = ',';
+	}
+	i = 44;
+	j = 44;
+	while (i > 0)
+	{
+		i--;
+		grid[i][j] = '.';
+		i--;
+		j--;
+		grid[i][j] = '.';
+	}
+	i = 44;
+	j = 44;
+	while (i > 0)
+	{
+		i--;
+		grid[i][j] = '.';
+		i--;
+		j++;
+		grid[i][j] = '.';
+	}
+	i = 44;
+	j = 44;
+	while (i > 0)
+	{
+		i--;
+		grid[i][j] = ',';
+		i--;
+		grid[i][j] = ',';
+		i--;
+		grid[i][j] = ',';
+		j--;
+		i--;
+		grid[i][j] = ',';
+	}
+	i = 44;
+	j = 44;
+	while (i > 0)
+	{
+		i--;
+		grid[i][j] = ',';
+		i--;
+		grid[i][j] = ',';
+		i--;
+		grid[i][j] = ',';
+		j++;
+		i--;
+		grid[i][j] = ',';
+	}
+	i = 44;
+	j = 44;
+	while (i > 0)
+	{
+		i--;
+		grid[i][j] = ',';
+		j++;
+		i--;
+		grid[i][j] = ',';
+		j++;
+		i--;
 		grid[i][j] = ',';
 	}
 	i = 0;

@@ -6,7 +6,7 @@
 /*   By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 14:38:40 by dafranco          #+#    #+#             */
-/*   Updated: 2023/07/22 18:44:10 by jbutte           ###   ########.fr       */
+/*   Updated: 2023/07/23 18:50:31 by jbutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,21 @@
 //--------------------------------------------------------------------------//
 //	-							DEFINES										//
 //--------------------------------------------------------------------------//
-
+# define WIDTH 256
+# define HEIGHT 256
+# define PI	3.1415926535
 //--------------------------------------------------------------------------//
 //	- 							INCLUDES									//
 //--------------------------------------------------------------------------//
 
 # include "../libft/libft.h"
-# include <fcntl.h>
-# include <sys/stat.h>
 # include <sys/types.h>
-//# include "MLX42/include/MLX42/MLX42_Int.h"
-# include <stdbool.h>
+# include <sys/stat.h>
+# include <fcntl.h>
+# include "MLX42/include/MLX42/MLX42_Int.h"
 # include <stdio.h>
+# include <stdbool.h>
+# include <math.h>
 
 //--------------------------------------------------------------------------//
 //	- 							VARIABLES									//
@@ -36,6 +39,43 @@
 //--------------------------------------------------------------------------//
 //	-							STRUCTURES									//
 //--------------------------------------------------------------------------//
+
+typedef struct s_vars
+{
+	void				*mlx_ptr;
+	void				*win_ptr;
+	char				*title;
+	struct s_map		map;
+	struct s_player		*player;
+}t_vars;
+
+typedef struct s_map
+{
+	bool				**wall;
+	char				**tab;
+	int					width;
+	int					height;
+}t_map;
+
+typedef struct s_player
+{
+	double				pos_x;
+	double				pos_y;
+	double				dir_x;
+	double				dir_y;
+	double				lvl_x;
+	double				lvl_y;
+	struct s_ray		*ray;
+}t_player;
+
+typedef struct s_ray
+{
+	double				size;
+	double				dir_x;
+	double				dir_y;
+	double				side_x;
+	double				side_y;
+}t_ray;
 
 //--------------------------------------------------------------------------//
 //	-							FUNCTIONS									//
@@ -74,6 +114,18 @@ bool	check_tab(char **tab);
 bool	check_columns(char **tab);
 bool	check_lines(char **tab);
 
-int		main(int argc, char **argv);
+//	map_fill.c
+void	fill_tab(char **blueprint, char ***tab, size_t y);
+char	*fill_line(const char *str);
+
+//	draw.c
+void	draw_map(t_vars mlx);
+//void	draw_all(void *);
+
+//	main.c
+void	draw_player(t_vars *mlx);
+
+//	draw_ray.c
+void	draw_line(void *param);
 
 #endif

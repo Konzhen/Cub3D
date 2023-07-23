@@ -40,15 +40,15 @@
 //	-							STRUCTURES									//
 //--------------------------------------------------------------------------//
 
-typedef struct s_vars
+typedef struct s_data
 {
+	struct s_map		map;
+	struct s_player		player;
+	struct s_ray		ray;
 	void				*mlx_ptr;
 	void				*win_ptr;
-	struct s_map		*map;
 	char				*title;
-	int					x;
-	int					y;
-}t_vars;
+}t_data;
 
 typedef struct s_map
 {
@@ -66,6 +66,7 @@ typedef struct	s_player
 	double	dir_y;
 	double	lvl_x;
 	double	lvl_y;
+	struct s_ray		ray;
 }t_player;
 
 typedef struct	s_ray
