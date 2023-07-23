@@ -6,7 +6,7 @@
 /*   By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 16:35:10 by jbutte            #+#    #+#             */
-/*   Updated: 2023/07/23 18:40:29 by jbutte           ###   ########.fr       */
+/*   Updated: 2023/07/23 22:37:50 by jbutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,9 +110,11 @@ char	**checker(char *argv_1)
 		return (NULL);
 	}
 	tab = get_tab(get_raw_tab(fd, argv_1));
-	if (!tab)
+	if (!tab || check_tab(tab))
+	{
+		close(fd);
 		return (NULL);
-	if (check_tab(tab))
-		return (NULL);
+	}
+	close(fd);
 	return (tab);
 }
