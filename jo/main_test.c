@@ -20,5 +20,5 @@ int	main(int argc, char **argv)
 		return (1);
 	tab = checker(argv[1]);
 	if (!tab)
-		return (1);
+		printf("false\n");
 }

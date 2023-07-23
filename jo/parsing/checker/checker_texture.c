@@ -6,7 +6,7 @@
 /*   By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 14:55:27 by jbutte            #+#    #+#             */
-/*   Updated: 2023/07/22 18:47:02 by jbutte           ###   ########.fr       */
+/*   Updated: 2023/07/23 15:15:50 by jbutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,11 @@ bool	check_texture_line(char *line, char *tex)
 
 	i = 0;
 	skip_spaces(line, &i);
-	if (ft_strncmp(&line[i], tex, 3))
+	if (ft_strncmp(&line[i], tex, 2))
 		return (true);
 	i += 2;
-	skip_spaces(line, &i);
+	if (!skip_spaces(line, &i))
+		return (true);
 	tex_path = get_texture_path(line, &i);
 	if (!tex_path || check_ext(tex_path, ".jpg"))
 	{

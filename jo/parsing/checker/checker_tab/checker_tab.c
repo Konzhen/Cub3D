@@ -6,7 +6,7 @@
 /*   By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 17:46:54 by jbutte            #+#    #+#             */
-/*   Updated: 2023/07/22 20:52:06 by jbutte           ###   ########.fr       */
+/*   Updated: 2023/07/23 15:31:46 by jbutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,18 @@ static bool	check_around_path(char **tab, int x, int y)
 	if (tab[y][x + 1] == ' ' || tab[y][x + 1] == '\n' || !tab[y][x + 1])
 		return (true);
 	if (tab[y][x - 1] == ' ' || tab[y][x - 1] == '\n' || !tab[y][x - 1])
+		return (true);
+	if (tab[y - 1][x - 1] == ' ' || tab[y - 1][x - 1] == '\n' || !tab[y - 1][x
+		- 1])
+		return (true);
+	if (tab[y + 1][x + 1] == ' ' || tab[y + 1][x + 1] == '\n' || !tab[y + 1][x
+		+ 1])
+		return (true);
+	if (tab[y - 1][x + 1] == ' ' || tab[y - 1][x + 1] == '\n' || !tab[y - 1][x
+		+ 1])
+		return (true);
+	if (tab[y + 1][x - 1] == ' ' || tab[y + 1][x - 1] == '\n' || !tab[y + 1][x
+		- 1])
 		return (true);
 	return (false);
 }
