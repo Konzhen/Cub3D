@@ -6,7 +6,7 @@
 /*   By: dafranco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 17:07:38 by dafranco          #+#    #+#             */
-/*   Updated: 2023/07/12 22:29:25 by dafranco         ###   ########.fr       */
+/*   Updated: 2023/07/20 23:13:29 by dafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ static char	**map_cpy(int fd, size_t x, size_t y);
 static char	**map_init(char **blueprint, size_t y);
 
 static mlx_image_t* player;
-static mlx_image_t* vision;
 static mlx_image_t* line;
 static float player_x;
 static float player_y;
@@ -50,26 +49,6 @@ void	ft_player(void *param)
 	}
 }
 
-void	ft_vision(void *param)
-{
-	uint32_t	i;
-	uint32_t	y;
-
-	(void)param;
-	i = 0;
-	y = 0;
-	while (i < vision->width)
-	{
-		while (y < vision->height)
-		{
-			mlx_put_pixel(vision, i, y, 0xBB00CC);
-			++y;
-		}
-		++i;
-		y = 0;
-	}
-}
-
 void ft_move(void* param)
 {
 	mlx_t* mlx = param;
@@ -78,20 +57,20 @@ void ft_move(void* param)
 	{
 		player->instances[0].x += dir_x;
 		player->instances[0].y += dir_y;
-		vision->instances[0].x = (player->instances[0].x + 10) + dir_x * 10;
-		vision->instances[0].y = (player->instances[0].y + 10) + dir_y * 10;
+		line->instances[0].x = (player->instances[0].x) + dir_x * 5;
+		line->instances[0].y = (player->instances[0].y) + dir_y * 5;
 	} 
 	if (mlx_is_key_down(mlx, MLX_KEY_S))
 	{
 		player->instances[0].x -= dir_x;
 		player->instances[0].y -= dir_y;
-		vision->instances[0].x = (player->instances[0].x + 10) + dir_x * 10;
-		vision->instances[0].y = (player->instances[0].y + 10)  + dir_y * 10;
+		line->instances[0].x = (player->instances[0].x) + dir_x * 5;
+		line->instances[0].y = (player->instances[0].y)  + dir_y * 5;
 	}
 	if (mlx_is_key_down(mlx, MLX_KEY_A))
 	{
-		vision->instances[0].x = (player->instances[0].x + 10) + dir_x * 10;
-		vision->instances[0].y = (player->instances[0].y + 10) + dir_y * 10;
+		line->instances[0].x = (player->instances[0].x) + dir_x * 5;
+		line->instances[0].y = (player->instances[0].y) + dir_y * 5;
 		angle-=0.1;
 		if(angle <= 0)
 			angle += 2*PI;
@@ -100,8 +79,8 @@ void ft_move(void* param)
 	}
 	if (mlx_is_key_down(mlx, MLX_KEY_D))
 	{
-		vision->instances[0].x = (player->instances[0].x + 10) + dir_x * 10;
-		vision->instances[0].y = (player->instances[0].y + 10) + dir_y * 10;
+		line->instances[0].x = (player->instances[0].x) + dir_x * 5;
+		line->instances[0].y = (player->instances[0].y) + dir_y * 5;
 		angle+=0.1;
 		if(angle >= 2*PI)
 			angle -= 2*PI;
@@ -112,10 +91,8 @@ void ft_move(void* param)
 
 void	draw_player(t_vars *mlx)
 {
-	player = mlx_new_image(mlx->mlx_ptr, 30, 30);
+	player = mlx_new_image(mlx->mlx_ptr, 10, 10);
 	mlx_image_to_window(mlx->mlx_ptr, player, 300, 300);
-	vision = mlx_new_image(mlx->mlx_ptr, 10, 10);
-	mlx_image_to_window(mlx->mlx_ptr, vision, 300, 300);
 }
 
 int32_t	main(int argc, char **argv)
@@ -133,11 +110,10 @@ int32_t	main(int argc, char **argv)
 	dir_y = sin(angle) * 5;
 	draw_map(*mlx);
 	draw_player(mlx);
-	line = mlx_new_image(mlx->mlx_ptr, 0, 0);
-	mlx_image_to_window(mlx->mlx_ptr, line, 0, 0);
+	line = mlx_new_image(mlx->mlx_ptr, WIDTH, HEIGHT);
+	mlx_image_to_window(mlx->mlx_ptr, line, 200, 200);
 	mlx_loop_hook(mlx->mlx_ptr, draw_line, line);
 	mlx_loop_hook(mlx->mlx_ptr, ft_player, mlx->mlx_ptr);
-	mlx_loop_hook(mlx->mlx_ptr, ft_vision, mlx->mlx_ptr);
 	mlx_loop_hook(mlx->mlx_ptr, ft_move, mlx->mlx_ptr);
 	mlx_loop(mlx->mlx_ptr);
 	mlx_terminate(mlx->mlx_ptr);
