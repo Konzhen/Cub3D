@@ -6,7 +6,7 @@
 /*   By: dafranco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 17:07:38 by dafranco          #+#    #+#             */
-/*   Updated: 2023/07/20 23:13:29 by dafranco         ###   ########.fr       */
+/*   Updated: 2023/07/23 18:28:21 by dafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,6 @@ int32_t	main(int argc, char **argv)
 {
 	t_vars	*mlx;
 
-	(void)argc;
 	mlx = malloc(sizeof(t_vars));
 	mlx->map = map_len(argv[1]);
 //	return (0);
@@ -110,6 +109,9 @@ int32_t	main(int argc, char **argv)
 	dir_y = sin(angle) * 5;
 	draw_map(*mlx);
 	draw_player(mlx);
+	//mlx->map = create_map(chercker(argv[1]));
+	//if (!mlx->map)
+	//	return (1);
 	line = mlx_new_image(mlx->mlx_ptr, WIDTH, HEIGHT);
 	mlx_image_to_window(mlx->mlx_ptr, line, 200, 200);
 	mlx_loop_hook(mlx->mlx_ptr, draw_line, line);

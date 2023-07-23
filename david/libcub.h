@@ -6,7 +6,7 @@
 /*   By: dafranco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 14:38:40 by dafranco          #+#    #+#             */
-/*   Updated: 2023/07/12 22:26:19 by dafranco         ###   ########.fr       */
+/*   Updated: 2023/07/23 18:28:17 by dafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,17 +39,44 @@
 //--------------------------------------------------------------------------//
 //	-							STRUCTURES									//
 //--------------------------------------------------------------------------//
+
 typedef struct s_vars
 {
 	void				*mlx_ptr;
 	void				*win_ptr;
-	char				**map;
+	struct s_map		*map;
 	char				*title;
 	int					x;
 	int					y;
+}t_vars;
+
+typedef struct s_map
+{
+	bool				**wall;
+	char				**tab;
 	int					width;
 	int					height;
-}t_vars;
+}t_map;
+
+typedef struct	s_player
+{
+	double	pos_x;
+	double	pos_y;
+	double	dir_x;
+	double	dir_y;
+	double	lvl_x;
+	double	lvl_y;
+}t_player;
+
+typedef struct	s_ray
+{
+	double	size;
+	double	dir_x;
+	double	dir_y;
+	double	side_x;
+	double	side_y;
+}
+
 //--------------------------------------------------------------------------//
 //	-							FUNCTIONS									//
 //--------------------------------------------------------------------------//
@@ -63,14 +90,29 @@ int		stocker(int i);
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~./parsing/checker/
 
-//	checker_.c
-bool	checker(char *argv_1);
+//	checker.c
+char	**checker(char *argv_1);
 
 //	checker_utils.c
-bool    check_color_format(char *line, int *i);
-bool    check_texture_line(char *line, char *tex, int fd);
-char	*skip_empty_line(int fd);
-char    *get_next_valid_line(int fd);
+bool	check_residue(char *line);
+bool	check_color_format(char *line, int *i, bool last);
+char	*get_next_valid_line(int fd);
+
+//	checker_texture.c
+bool	check_texture_line(char *line, char *tex);
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~./parsing/checker/chercker_tab/
+
+//	checker_get_tab.c
+char	**get_raw_tab(int fd, char *argv_1);
+char	**get_tab(char **tab);
+
+//	checker_tab.c
+bool	check_tab(char **tab);
+
+// checker_lines_and_columns.c
+bool	check_columns(char **tab);
+bool	check_lines(char **tab);
 
 //	map_fill.c
 void	fill_tab(char **blueprint, char ***tab, size_t y);
