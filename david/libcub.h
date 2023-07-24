@@ -6,7 +6,7 @@
 /*   By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 14:38:40 by dafranco          #+#    #+#             */
-/*   Updated: 2023/07/24 05:33:56 by dafranco         ###   ########.fr       */
+/*   Updated: 2023/07/24 08:41:03 by dafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,14 @@
 //--------------------------------------------------------------------------//
 //	-							DEFINES										//
 //--------------------------------------------------------------------------//
+//
 # define WIDTH 256
 # define HEIGHT 256
 # define PI	3.1415926535
+# define STOCK = 0
+# define RESET = -1
+# define RETURN = 1
+
 //--------------------------------------------------------------------------//
 //	- 							INCLUDES									//
 //--------------------------------------------------------------------------//
@@ -59,6 +64,7 @@ typedef struct s_player
 	double				dir_y;
 	double				lvl_x;
 	double				lvl_y;
+	double				angle;
 	struct s_ray		*ray;
 }	t_player;
 
@@ -126,19 +132,27 @@ void	fill_tab(char **blueprint, char ***tab, size_t y);
 char	*fill_line(const char *str);
 
 //	draw.c
-void	draw_map(t_data mlx);
+void	draw_map(t_data *mlx);
 //void	draw_all(void *);
 
 //	main.c
-void	draw_player(t_data *mlx);
+void	draw_player(t_data mlx);
+void	ft_player(void *param);
 
 //	draw_ray.c
 void	draw_line(void *param);
 
 //	movements.c
 void	move_forward(void *param);
+void	move_backward(void *param);
+void	move_left(void *param);
+void	move_right(void *param);
 
 //	stocker.c
 char	*stocker_color(int r, int g, int b, int action);
+
+//	game.c
+void	init_game(t_data *data);
+void	ft_loops(t_data *data);
 
 #endif
