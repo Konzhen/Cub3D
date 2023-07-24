@@ -6,7 +6,7 @@
 /*   By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 14:38:40 by dafranco          #+#    #+#             */
-/*   Updated: 2023/07/24 05:07:23 by jbutte           ###   ########.fr       */
+/*   Updated: 2023/07/24 05:42:12 by jbutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ char					*fill_line(const char *str);
 
 //	draw.c
 void					draw_map(t_data mlx);
-// void	draw_all(void *);
 
 //	main.c
 void					draw_player(t_data *mlx);
@@ -109,6 +108,12 @@ int						init(int argc, char **argv);
 int						scanlines(int pos_player, int pos_map);
 int						error(int i);
 int						stocker(int i);
+
+//	movements.c
+void					move_forward(void *param);
+
+//	stocker.c
+char					*stocker_color(int r, int g, int b, int action);
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~./checker/
 

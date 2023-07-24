@@ -93,10 +93,19 @@ void	draw_player(t_data *data)
 int32_t	main(int argc, char **argv)
 {
 	t_data	*data;
+	//int		fd;
 
 	data = malloc(sizeof(t_data));
 	if (check_argc(argc, 2, 2))
 		return (1);
+	/*
+	fd = checker(argv[1]);
+	if (fd == -1)
+		return (1);
+	data = get_data(fd);
+	if (!data)
+		return (1);
+	*/
 	data->map.tab = checker(argv[1]);
 //	return (0);
 	init_game(data);
