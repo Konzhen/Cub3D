@@ -6,7 +6,7 @@
 /*   By: dafranco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 17:07:38 by dafranco          #+#    #+#             */
-/*   Updated: 2023/07/23 18:28:21 by dafranco         ###   ########.fr       */
+/*   Updated: 2023/07/24 05:33:54 by dafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,7 @@
 #include <stdbool.h>
 #include <math.h>
 
-static char	**map_len(char *argv);
-static char	**map_cpy(int fd, size_t x, size_t y);
-static char	**map_init(char **blueprint, size_t y);
-
 static mlx_image_t* player;
-static mlx_image_t* line;
 static float player_x;
 static float player_y;
 static float dir_x;
@@ -89,98 +84,34 @@ void ft_move(void* param)
 	}
 }
 
-void	draw_player(t_vars *mlx)
+void	draw_player(t_data *data)
 {
-	player = mlx_new_image(mlx->mlx_ptr, 10, 10);
-	mlx_image_to_window(mlx->mlx_ptr, player, 300, 300);
+	player = mlx_new_image(data->mlx_ptr, 10, 10);
+	mlx_image_to_window(data->mlx_ptr, player, 300, 300);
 }
 
 int32_t	main(int argc, char **argv)
 {
-	t_vars	*mlx;
+	t_data	*data;
 
-	mlx = malloc(sizeof(t_vars));
-	mlx->map = map_len(argv[1]);
+	data = malloc(sizeof(t_data));
+	if (check_argc(argc, 2, 2))
+		return (1);
+	data->map.tab = checker(argv[1]);
 //	return (0);
-	mlx->mlx_ptr = mlx_init(1024, 512, "MLX42", true);
+	init_game(data);
+	data->mlx_ptr = mlx_init(1024, 512, "MLX42", true);
 	player_x = 0;
 	player_y = 0;
 	dir_x = cos(angle) * 5;
 	dir_y = sin(angle) * 5;
-	draw_map(*mlx);
-	draw_player(mlx);
-	//mlx->map = create_map(chercker(argv[1]));
+	draw_map(*data);
+	draw_player(data);
 	//if (!mlx->map)
 	//	return (1);
-	line = mlx_new_image(mlx->mlx_ptr, WIDTH, HEIGHT);
-	mlx_image_to_window(mlx->mlx_ptr, line, 200, 200);
-	mlx_loop_hook(mlx->mlx_ptr, draw_line, line);
-	mlx_loop_hook(mlx->mlx_ptr, ft_player, mlx->mlx_ptr);
-	mlx_loop_hook(mlx->mlx_ptr, ft_move, mlx->mlx_ptr);
-	mlx_loop(mlx->mlx_ptr);
-	mlx_terminate(mlx->mlx_ptr);
+	mlx_loop_hook(data->mlx_ptr, ft_player, data->mlx_ptr);
+	mlx_loop_hook(data->mlx_ptr, ft_move, data->mlx_ptr);
+	mlx_loop(data->mlx_ptr);
+	mlx_terminate(data->mlx_ptr);
 	return (EXIT_SUCCESS);
-}
-
-static char	**map_init(char **blueprint, size_t y)
-{
-	char	**map;
-	int		i;
-
-	i = 0;
-	while (i < (int)y)
-	{
-		fill_tab(blueprint, &map, y);
-		i++;
-	}
-	i = 0;
-	return (map);
-}
-
-static char	**map_cpy(int fd, size_t x, size_t y)
-{
-	char	**map;
-	char	**cpy;
-	int		i;
-
-	i = 0;
-	cpy = NULL;
-	map = (char **)malloc((sizeof(char **) * y) + 1);
-	if (!map)
-		return (NULL);
-	while (i < (int)y)
-	{
-		map[i] = ft_calloc(sizeof(char *), x);
-		map[i] = strdup(get_next_line(fd));
-		i++;
-	}
-	map[y + 1] = NULL;
-	cpy = map_init(map, y);
-	return (cpy);
-}
-
-static char	**map_len(char *argv)
-{
-	static size_t		x;
-	static size_t		y;
-	int					fd;
-	char				*str;
-	char				**map;
-
-	fd = open(argv, O_RDONLY);
-	str = NULL;
-	map = NULL;
-	while (1)
-	{
-		str = get_next_line(fd);
-		if (ft_strlen(str) > x)
-			x = ft_strlen(str);
-		if (ft_strlen(str) == 0)
-			break ;
-		y++;
-	}
-	close(fd);
-	fd = open(argv, O_RDONLY);
-	map = map_cpy(fd, x, y);
-	return (map);
 }

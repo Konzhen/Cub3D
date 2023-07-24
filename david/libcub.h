@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libcub.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dafranco <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 14:38:40 by dafranco          #+#    #+#             */
-/*   Updated: 2023/07/23 18:28:17 by dafranco         ###   ########.fr       */
+/*   Updated: 2023/07/24 05:33:56 by dafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,43 +40,49 @@
 //	-							STRUCTURES									//
 //--------------------------------------------------------------------------//
 
-typedef struct s_data
+typedef struct s_ray
 {
-	struct s_map		map;
-	struct s_player		player;
-	struct s_ray		ray;
-	void				*mlx_ptr;
-	void				*win_ptr;
-	char				*title;
-}t_data;
+	double				size;
+	double				dir_x;
+	double				dir_y;
+	double				side_x;
+	double				side_y;
+}	t_ray;
+
+typedef struct s_player
+{
+	mlx_image_t			*info;
+	char				start;
+	double				pos_x;
+	double				pos_y;
+	double				dir_x;
+	double				dir_y;
+	double				lvl_x;
+	double				lvl_y;
+	struct s_ray		*ray;
+}	t_player;
 
 typedef struct s_map
 {
-	bool				**wall;
 	char				**tab;
 	int					width;
 	int					height;
-}t_map;
+	char				*color_f;
+	char				*color_c;
+	char				*no;
+	char				*so;
+	char				*ea;
+	char				*we;
+}	t_map;
 
-typedef struct	s_player
+typedef struct s_data
 {
-	double	pos_x;
-	double	pos_y;
-	double	dir_x;
-	double	dir_y;
-	double	lvl_x;
-	double	lvl_y;
-	struct s_ray		ray;
-}t_player;
-
-typedef struct	s_ray
-{
-	double	size;
-	double	dir_x;
-	double	dir_y;
-	double	side_x;
-	double	side_y;
-}
+	void				*mlx_ptr;
+	void				*win_ptr;
+	char				*title;
+	struct s_map		map;
+	struct s_player		*player;
+}	t_data;
 
 //--------------------------------------------------------------------------//
 //	-							FUNCTIONS									//
@@ -105,7 +111,7 @@ bool	check_texture_line(char *line, char *tex);
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~./parsing/checker/chercker_tab/
 
 //	checker_get_tab.c
-char	**get_raw_tab(int fd, char *argv_1);
+char	**get_raw_tab(int fd, char *argv);
 char	**get_tab(char **tab);
 
 //	checker_tab.c
@@ -120,13 +126,19 @@ void	fill_tab(char **blueprint, char ***tab, size_t y);
 char	*fill_line(const char *str);
 
 //	draw.c
-void	draw_map(t_vars mlx);
-void	draw_all(void *);
+void	draw_map(t_data mlx);
+//void	draw_all(void *);
 
 //	main.c
-void	draw_player(t_vars *mlx);
+void	draw_player(t_data *mlx);
 
 //	draw_ray.c
-void draw_line(void *param);
+void	draw_line(void *param);
+
+//	movements.c
+void	move_forward(void *param);
+
+//	stocker.c
+char	*stocker_color(int r, int g, int b, int action);
 
 #endif
