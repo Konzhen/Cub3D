@@ -6,11 +6,11 @@
 /*   By: dafranco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 00:24:48 by dafranco          #+#    #+#             */
-/*   Updated: 2023/07/24 04:47:57 by dafranco         ###   ########.fr       */
+/*   Updated: 2023/07/24 06:54:10 by dafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libcub.h"
+#include "libcub.h"
 
 static char	*itohex(unsigned int nb);
 static void	ft_cpy(char *str1, char *str2);
@@ -34,7 +34,6 @@ static void	ft_cpy(char *str1, char *str2)
 char	*stocker_color(int r, int g, int b, int action)
 {
 	static char	hexacolor[6];
-	int			i;
 
 	if (action == 0)
 	{
@@ -65,6 +64,5 @@ static char	*itohex(unsigned int nb)
 		hex[ft_strlen(hex)] = ('A' + (nb % 16) % 10);
 	else
 		hex[ft_strlen(hex)] = ('0' + (nb % 16));
-	hex[2] = '\0';
 	return (hex);
 }

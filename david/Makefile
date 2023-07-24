@@ -6,7 +6,7 @@
 #    By: dafranco <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/05 14:46:14 by dafranco          #+#    #+#              #
-#    Updated: 2023/07/24 04:49:47 by dafranco         ###   ########.fr        #
+#    Updated: 2023/07/24 06:58:59 by dafranco         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,8 +23,9 @@ MY_SOURCES = 	main.c 									\
 		checker/checker_tab/checker_get_tab.c			\
 		checker/checker_tab/checker_lines_and_columns.c	\
 		data/get_data.c 								\
-		data/stocker.c 									\
+		stocker.c 										\
 		data/movements.c 								\
+		data/game.c 								\
 
 
 
