@@ -6,43 +6,41 @@
 /*   By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 18:41:32 by jbutte            #+#    #+#             */
-/*   Updated: 2023/07/24 04:40:43 by jbutte           ###   ########.fr       */
+/*   Updated: 2023/07/24 05:02:30 by jbutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libcub.h"
 
-static bool	set_textures(t_map *map, int fd, char *line, int tex_n)
+static bool	set_textures(t_map *map, int fd)
 {
-	char	*tex_path;
-	int		tmp;
-	int		i;
+	char	*line;
 
-	i = 0;
-	skip_spaces(line, &i);
-	i += 2;
-	tex_path = get_texture_path(line, &i);
-	if (!tex_path)
+	line = get_next_valid_line(fd);
+	if (!line || fill_texture(&map, fd, line, 1))
 		return (true);
-	if (tex_n == 1)
-		map->no = tex_path;
-}
-
-static bool	set_colors(t_map *map, int fd)
-{
-
-}
-
-static void	set_width_and_heigth(t_map *map)
-{
-	
+	free(line);
+	line = get_next_valid_line(fd);
+	if (!line || fill_texture(&map, fd, line, 2))
+		return (true);
+	free(line);
+	line = get_next_valid_line(fd);
+	if (!line || fill_texture(&map, fd, line, 3))
+		return (true);
+	if (fill_texture(&map, fd, line, 3))
+		return (true);
+	free(line);
+	line = get_next_valid_line(fd);
+	if (!line || fill_texture(&map, fd, line, 4))
+		return (true);
+	free(line);
+	return (false);
 }
 
 static bool	set_map(t_map *map)
 {
 	int		fd;
 	bool	valid;
-	char	*line;
 
 	fd = open(argv_1, O_RDONLY);
 	if (fd == -1)
@@ -51,12 +49,10 @@ static bool	set_map(t_map *map)
 		return (true);
 	}
 	valid = false;
-	line = get_next_valid_line(fd);
-	if (set_textures(&map, fd, line, 1) || set_textures(&map, fd, line, 2)
-		set_textures(&map, fd, line, 3) || set_textures(&map, fd, line, 4))
-		valid = true;
+	if (set_textures(&map, fd))
+		return (true);
 	if (set_colors(&map))
-		valid = true;
+		return (true);
 	set_width_and_heigth(&map);
 	return (map);
 }
@@ -72,7 +68,7 @@ t_map	*get_map(int fd, char *argv_1)
 		return (map);
 	if (set_map(&map))
 	{
-		free_tab(map.tab);
+		free_map(&map);
 		map = map_constructor();
 		return (map);
 	}

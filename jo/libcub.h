@@ -6,7 +6,7 @@
 /*   By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 14:38:40 by dafranco          #+#    #+#             */
-/*   Updated: 2023/07/24 04:40:25 by jbutte           ###   ########.fr       */
+/*   Updated: 2023/07/24 05:07:23 by jbutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ typedef struct s_map
 	char				*color_c;
 	char				*no;
 	char				*so;
-	char				*ea;
 	char				*we;
+	char				*ea;
 }						t_map;
 
 typedef struct s_data
@@ -86,6 +86,22 @@ typedef struct s_data
 //--------------------------------------------------------------------------//
 //	-							FUNCTIONS									//
 //--------------------------------------------------------------------------//
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~./
+
+//	map_fill.c
+void					fill_tab(char **blueprint, char ***tab, size_t y);
+char					*fill_line(const char *str);
+
+//	draw.c
+void					draw_map(t_data mlx);
+// void	draw_all(void *);
+
+//	main.c
+void					draw_player(t_data *mlx);
+
+//	draw_ray.c
+void					draw_line(void *param);
 
 int						render(int params, char **argv);
 bool					parser(int argc, char **argv);
@@ -125,6 +141,10 @@ t_data					get_data(int fd);
 
 //	get_map.c
 
+//	get_map_utils.c
+bool					fill_texture(t_map *map, int fd, char *line, int tex_n);
+bool					set_colors(t_map *map, int fd);
+void					set_width_and_heigth(t_map *map);
 
 //	get_tab.c
 char					**get_raw_tab(int fd, char *argv_1);
@@ -137,21 +157,9 @@ int						count_empty_lines(char **raw_tab);
 //	storage_texture.c
 char					*manage_stock_texture(char *tex_path, int option);
 
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~./free/
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~./
-
-//	map_fill.c
-void					fill_tab(char **blueprint, char ***tab, size_t y);
-char					*fill_line(const char *str);
-
-//	draw.c
-void					draw_map(t_data mlx);
-// void	draw_all(void *);
-
-//	main.c
-void					draw_player(t_data *mlx);
-
-//	draw_ray.c
-void					draw_line(void *param);
+//	free_map.c
+void					free_map(t_map *map);
 
 #endif
