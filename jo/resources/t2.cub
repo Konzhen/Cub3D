@@ -1,12 +1,12 @@
 
 
-NO 					no.jpg								
+NO 					resources/no.jpg								
 					
-SO so.jpg
-WE we.jpg
+SO resources/so.jpg
+WE resources/we.jpg
 
 
-EA ea.jpg
+EA resources/ea.jpg
 
 F 255    , 100, 0
 

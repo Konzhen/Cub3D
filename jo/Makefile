@@ -6,26 +6,27 @@
 #    By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/05 14:46:14 by dafranco          #+#    #+#              #
-#    Updated: 2023/07/23 22:49:48 by jbutte           ###   ########.fr        #
+#    Updated: 2023/07/24 04:13:54 by jbutte           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3d
 
-MY_SOURCES = 	main													\
+MY_SOURCES = 	main_test.c												\
 				map_init.c												\
 				map_fill.c												\
 				draw.c													\
 				draw_ray.c												\
-				parsing/checker/checker.c								\
-				parsing/checker/checker_utils.c							\
-				parsing/checker/checker_texture.c						\
-				parsing/checker/checker_tab.c							\
-				parsing/checker/checker_lines_and_columns.c				\
-				parsing/data/constructors.c								\				
-				parsing/data/get_data.c									\
-				parsing/data/get_tab.c									\
-				parsing/data/get_map.c									\
+				checker/checker.c										\
+				checker/checker_utils.c									\
+				checker/checker_texture.c								\
+				checker/checker_tab.c									\
+				checker/checker_lines_and_columns.c						\
+				data/constructors.c										\			
+				data/get_data.c											\
+				data/get_tab.c											\
+				data/get_tab_utils.c									\
+				data/get_map.c											\
 
 
 MY_OBJECTS = $(MY_SOURCES:%.c=%.o)

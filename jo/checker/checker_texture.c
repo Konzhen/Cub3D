@@ -6,7 +6,7 @@
 /*   By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 14:55:27 by jbutte            #+#    #+#             */
-/*   Updated: 2023/07/23 22:47:23 by jbutte           ###   ########.fr       */
+/*   Updated: 2023/07/24 04:37:31 by jbutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ size_t	ft_strlcpy_texture(char *dest, const char *src, int *i, size_t size)
 	return (srcsize);
 }
 
-static char	*get_texture_path(char *line, int *i)
+char	*get_texture_path(char *line, int *i)
 {
 	size_t	size;
 	size_t	j;
@@ -56,7 +56,7 @@ static char	*get_texture_path(char *line, int *i)
 	return (tex_path);
 }
 
-bool	check_texture_line(char *line, char *tex)
+bool	check_texture_line(char *line, char *tex, int option)
 {
 	char	*tex_path;
 	int		tmp;
@@ -77,9 +77,9 @@ bool	check_texture_line(char *line, char *tex)
 		return (true);
 	}
 	tmp = open(tex_path, O_RDONLY);
-	free(tex_path);
 	if (tmp == -1)
 		return (err_std("failed to open file"));
+	free(tex_path);
 	close(tmp);
 	return (false);
 }

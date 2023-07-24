@@ -6,7 +6,7 @@
 /*   By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 14:38:40 by dafranco          #+#    #+#             */
-/*   Updated: 2023/07/23 22:49:00 by jbutte           ###   ########.fr       */
+/*   Updated: 2023/07/24 04:40:25 by jbutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int						stocker(int i);
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~./checker/
 
 //	checker.c
-char					**checker(char *argv_1);
+int						checker(char *argv_1);
 
 //	checker_utils.c
 bool					check_residue(char *line);
@@ -105,7 +105,8 @@ bool					check_color_format(char *line, int *i, bool last);
 char					*get_next_valid_line(int fd);
 
 //	checker_texture.c
-bool					check_texture_line(char *line, char *tex);
+char					*get_texture_path(char *line, int *i);
+bool					check_texture_line(char *line, char *tex, int option);
 
 //	checker_tab.c
 bool					check_tab(char **tab);
@@ -120,7 +121,7 @@ bool					check_lines(char **tab);
 t_map					map_constructor(void);
 
 //	get_data.c
-
+t_data					get_data(int fd);
 
 //	get_map.c
 
@@ -129,7 +130,13 @@ t_map					map_constructor(void);
 char					**get_raw_tab(int fd, char *argv_1);
 char					**get_tab(char **tab);
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~./parsing/checker/
+//	get_tab_utils.c
+char					*fd_line_cpy(char *line, int fd2);
+int						count_empty_lines(char **raw_tab);
+
+//	storage_texture.c
+char					*manage_stock_texture(char *tex_path, int option);
+
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~./
 
