@@ -6,11 +6,11 @@
 /*   By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 17:46:54 by jbutte            #+#    #+#             */
-/*   Updated: 2023/07/23 18:40:41 by jbutte           ###   ########.fr       */
+/*   Updated: 2023/07/24 04:23:04 by jbutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../libcub.h"
+#include "../libcub.h"
 
 static int	is_right_char(char c)
 {
@@ -104,11 +104,19 @@ static bool	check_valid_closure(char **tab)
 
 bool	check_tab(char **tab)
 {
+	bool	valid;
+
+	valid = false;
 	if (check_valid_char(tab))
-		return (true);
+		valid = true;
 	if (check_lines(tab) || check_columns(tab))
-		return (true);
+		valid = true;
 	if (check_valid_closure(tab))
-		return (true);
-	return (false);
+		valid = true;
+	if (valid)
+	{
+		free_tab((void **)tab, 0);
+		tab = NULL;
+	}
+	return (valid);
 }

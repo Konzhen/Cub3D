@@ -1,22 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_data.c                                         :+:      :+:    :+:   */
+/*   free_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/23 23:06:30 by jbutte            #+#    #+#             */
-/*   Updated: 2023/07/24 04:51:06 by jbutte           ###   ########.fr       */
+/*   Created: 2023/07/24 05:02:45 by jbutte            #+#    #+#             */
+/*   Updated: 2023/07/24 05:13:16 by jbutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libcub.h"
 
-t_data	get_data(int fd)
+void	free_map(t_map *map)
 {
-	t_data	data;
-
-	data.map = get_map(fd);
-	if (data.map.)
-	return (data);
+	free_tab((void **)map->tab, 0);
+	if (color_f)
+		free(color_f);
+	if (color_c)
+		free(color_c);
+	if (no)
+		free(no);
+	if (so)
+		free(so);
+	if (we)
+		free(we);
+	if (ea)
+		free(ea);
 }

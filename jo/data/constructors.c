@@ -1,22 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_data.c                                         :+:      :+:    :+:   */
+/*   constructors.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/23 23:06:30 by jbutte            #+#    #+#             */
-/*   Updated: 2023/07/24 04:51:06 by jbutte           ###   ########.fr       */
+/*   Created: 2023/07/23 22:48:15 by jbutte            #+#    #+#             */
+/*   Updated: 2023/07/24 03:18:00 by jbutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libcub.h"
 
-t_data	get_data(int fd)
+t_map	*map_constructor(void)
 {
-	t_data	data;
+	t_map	*map;
 
-	data.map = get_map(fd);
-	if (data.map.)
-	return (data);
+	map = ft_calloc(sizeof(t_map));
+	map.tab = NULL;
+	map.width = 0;
+	map.height = 0;
+	return (map);
 }

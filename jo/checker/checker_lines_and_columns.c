@@ -6,11 +6,11 @@
 /*   By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 21:38:16 by jbutte            #+#    #+#             */
-/*   Updated: 2023/07/23 18:40:38 by jbutte           ###   ########.fr       */
+/*   Updated: 2023/07/23 22:03:15 by jbutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../libcub.h"
+#include "../libcub.h"
 
 bool	check_columns(char **tab)
 {

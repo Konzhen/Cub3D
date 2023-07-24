@@ -6,7 +6,7 @@
 /*   By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 16:35:10 by jbutte            #+#    #+#             */
-/*   Updated: 2023/07/23 18:40:29 by jbutte           ###   ########.fr       */
+/*   Updated: 2023/07/24 04:14:50 by jbutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,25 +39,25 @@ static bool	check_texture(char *line, int fd)
 	bool	is_valid;
 
 	is_valid = false;
-	if (check_texture_line(line, "NO"))
+	if (check_texture_line(line, "NO", 1))
 		is_valid = true;
 	free(line);
 	line = get_next_valid_line(fd);
 	if (!line)
 		return (true);
-	if (check_texture_line(line, "SO"))
+	if (check_texture_line(line, "SO", 2))
 		is_valid = true;
 	free(line);
 	line = get_next_valid_line(fd);
 	if (!line)
 		return (true);
-	if (check_texture_line(line, "WE"))
+	if (check_texture_line(line, "WE", 3))
 		is_valid = true;
 	free(line);
 	line = get_next_valid_line(fd);
 	if (!line)
 		return (true);
-	if (check_texture_line(line, "EA"))
+	if (check_texture_line(line, "EA", 4))
 		is_valid = true;
 	free(line);
 	return (is_valid);
@@ -91,28 +91,22 @@ static bool	check_valid_parameters(int fd)
 	return (false);
 }
 
-char	**checker(char *argv_1)
+int	checker(char *argv_1)
 {
 	int		fd;
-	char	**tab;
 
 	if (check_ext(argv_1, ".cub"))
-		return (NULL);
+		return (-1);
 	fd = open(argv_1, O_RDONLY);
 	if (fd == -1)
 	{
 		err_std("can' t open the file");
-		return (NULL);
+		return (-1);
 	}
 	if (check_valid_parameters(fd))
 	{
 		close(fd);
-		return (NULL);
+		return (-1);
 	}
-	tab = get_tab(get_raw_tab(fd, argv_1));
-	if (!tab)
-		return (NULL);
-	if (check_tab(tab))
-		return (NULL);
-	return (tab);
+	return (fd);
 }
