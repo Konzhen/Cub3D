@@ -6,16 +6,10 @@
 /*   By: dafranco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 17:07:38 by dafranco          #+#    #+#             */
-/*   Updated: 2023/07/24 08:59:40 by dafranco         ###   ########.fr       */
+/*   Updated: 2023/07/24 23:34:30 by dafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "MLX42/include/MLX42/MLX42.h"
 #include "libcub.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
-#include <math.h>
 
 void	ft_player(void *param)
 {
@@ -42,7 +36,7 @@ void	draw_player(t_data data)
 {
 	mlx_image_t		*player;
 
-	data.player = malloc(sizeof(t_player));
+	data->player = malloc(sizeof(t_player));
 	player = NULL;
 	data.player->angle = 0.0;
 	data.player->dir_x = 0.0;
@@ -69,7 +63,7 @@ int32_t	main(int argc, char **argv)
 //	data = get_data(fd);
 //	if (!data)
 //		return (1);
-	data->map->tab = checker(argv[1]);
+	data->map.tab = checker(argv[1]);
 	init_game(data);
 	draw_player(*data);
 	draw_map(data);

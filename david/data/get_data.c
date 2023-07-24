@@ -6,10 +6,9 @@
 /*   By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 18:41:32 by jbutte            #+#    #+#             */
-/*   Updated: 2023/07/23 21:27:29 by dafranco         ###   ########.fr       */
+/*   Updated: 2023/07/24 22:08:41 by dafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "../libcub.h"
 
 //map	create_map(char **tab)

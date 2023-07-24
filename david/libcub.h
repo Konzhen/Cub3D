@@ -6,7 +6,7 @@
 /*   By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 14:38:40 by dafranco          #+#    #+#             */
-/*   Updated: 2023/07/24 08:41:03 by dafranco         ###   ########.fr       */
+/*   Updated: 2023/07/24 22:45:36 by dafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,20 @@
 # define STOCK = 0
 # define RESET = -1
 # define RETURN = 1
+
+//--------------------------------------------------------------------------//
+//	- 							ERRORS										//
+//--------------------------------------------------------------------------//
+
+# define ERR_CUB_FILE "can' t open the .cub file"
+# define ERR_TEX_FILE "can' t open texture file"
+# define ERR_EXTENSION "this extension format is not allowed"
+# define ERR_TEX_FORMAT "invalid texture syntax"
+# define ERR_COLOR_FORMAT "invalid color syntax"
+# define ERR_COLOR_VALUE "invalid color value"
+# define ERR_TAB_NOT_VALID "invalid tab"
+# define MALLOC "malloc failed"
+# define EMPTY_BAIT "did you really try to trap us ?"
 
 //--------------------------------------------------------------------------//
 //	- 							INCLUDES									//
@@ -83,6 +97,8 @@ typedef struct s_map
 
 typedef struct s_data
 {
+	mlx_image_t			*floor;
+	mlx_image_t			*ceilling;
 	void				*mlx_ptr;
 	void				*win_ptr;
 	char				*title;
@@ -133,6 +149,8 @@ char	*fill_line(const char *str);
 
 //	draw.c
 void	draw_map(t_data *mlx);
+void	draw_ceilling(void *arg);
+void	draw_floor(void *arg);
 //void	draw_all(void *);
 
 //	main.c
