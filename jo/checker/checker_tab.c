@@ -6,7 +6,7 @@
 /*   By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 17:46:54 by jbutte            #+#    #+#             */
-/*   Updated: 2023/07/24 04:23:04 by jbutte           ###   ########.fr       */
+/*   Updated: 2023/07/24 11:09:08 by jbutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,19 +104,11 @@ static bool	check_valid_closure(char **tab)
 
 bool	check_tab(char **tab)
 {
-	bool	valid;
-
-	valid = false;
 	if (check_valid_char(tab))
-		valid = true;
+		return (true);
 	if (check_lines(tab) || check_columns(tab))
-		valid = true;
+		return (true);
 	if (check_valid_closure(tab))
-		valid = true;
-	if (valid)
-	{
-		free_tab((void **)tab, 0);
-		tab = NULL;
-	}
-	return (valid);
+		return (true);
+	return (false);
 }

@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbutte <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 13:05:48 by jbutte            #+#    #+#             */
-/*   Updated: 2022/10/14 10:42:25 by jbutte           ###   ########.fr       */
+/*   Updated: 2023/07/24 10:18:56 by jbutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "libft.h"
 
 static int	ft_setindexstart(char const *s, char const *set)
@@ -68,7 +69,7 @@ char	*ft_strtrim(char const *s, char const *set)
 		dest = ft_strdup("");
 		return (dest);
 	}
-	dest = ft_calloc(end - start + 1, sizeof(char));
+	dest = calloc2(end - start + 1, sizeof(char));
 	if (!dest)
 		return (NULL);
 	while (start < end)

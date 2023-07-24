@@ -6,84 +6,64 @@
 /*   By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 15:45:18 by jbutte            #+#    #+#             */
-/*   Updated: 2023/07/24 03:00:02 by jbutte           ###   ########.fr       */
+/*   Updated: 2023/07/24 17:57:50 by jbutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libcub.h"
 
-static int	get_tab_size(char *line, char *argv_1)
+static bool	get_new_tab(char **raw_tab, int size)
 {
-	char	*tmp;
-	int		size;
-	int		fd2;
-
-	fd2 = open(argv_1, O_RDONLY);
-	if (fd2 == -1)
-		return (-1);
-	tmp = fd_line_cpy(line, fd2);
-	if (!tmp)
-		return (-1);
-	size = 0;
-	while (tmp != NULL)
-	{
-		size++;
-		free(tmp);
-		tmp = get_next_line(fd2);
-	}
-	free(tmp);
-	close(fd2);
-	return (size);
-}
-
-char	**get_raw_tab(int fd, char *argv_1)
-{
-	char	*line;
-	int		size;
 	char	**tab;
 	int		i;
 
-	line = get_next_valid_line(fd);
-	if (!line)
-		return (NULL);
-	size = get_tab_size(line, argv_1);
-	if (size == -1)
-		return (NULL);
-	tab = ft_calloc(size + 1, sizeof(char *));
+	tab = calloc2(size + 1, sizeof(char *));
 	if (!tab)
-		return (NULL);
+		return (true);
 	i = 0;
 	while (i < size)
 	{
-		tab[i] = line;
+		tab[i] = ft_strdup(raw_tab[i]);
+		if (!tab[i])
+		{
+			free_tab((void **)tab, 0);
+			return (true);
+		}
 		i++;
-		line = get_next_line(fd);
 	}
-	return (tab);
+	return (false);
+}
+
+static int	get_new_size(char **raw_tab)
+{
+	int	size;
+
+	size = 0;
+	while (raw_tab[size] && raw_tab[size][0] != '\n')
+		size++;
+	size -= count_empty_lines(raw_tab);
+	if (!size)
+		return (-1);
 }
 
 char	**get_tab(char **raw_tab)
 {
 	char	**tab;
 	int		size;
-	int		i;
 
 	if (!raw_tab)
 		return (NULL);
-	size = 0;
-	while (raw_tab[size])
-		size++;
-	size -= count_empty_lines(raw_tab);
-	if (!size)
-		return (NULL);
-	tab = ft_calloc(size + 1, sizeof(char *));
-	if (!tab)
-		return (NULL);
-	i = 0;
-	while (i < size)
+	size = get_new_size(raw_tab);
+	if (size == -1)
 	{
-		tab[i] = ft_strdup(raw_tab[i]);
-		i++;
+		free_tab((void **)raw_tab, 0);
+		return (NULL);
+	}
+	tab = get_new_tab(raw_tab, size);
+	if (!tab)
+	{
+		free_tab((void **)raw_tab, 0);
+		return (NULL);
 	}
 	free_tab((void **)raw_tab, 0);
 	return (tab);

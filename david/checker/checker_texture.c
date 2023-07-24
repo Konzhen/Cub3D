@@ -6,7 +6,7 @@
 /*   By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 14:55:27 by jbutte            #+#    #+#             */
-/*   Updated: 2023/07/23 18:40:23 by jbutte           ###   ########.fr       */
+/*   Updated: 2023/07/24 08:45:00 by jbutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static char	*get_texture_path(char *line, int *i)
 		j++;
 		size++;
 	}
-	tex_path = ft_calloc(size + 1, sizeof(char));
+	tex_path = calloc2(size + 1, sizeof(char));
 	if (!tex_path)
 		return (NULL);
 	j = 0;

@@ -3,42 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   comp_calloc2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbutte <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 14:08:33 by jbutte            #+#    #+#             */
-/*   Updated: 2023/02/28 14:08:36 by jbutte           ###   ########.fr       */
+/*   Updated: 2023/07/24 07:56:51 by jbutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "libft.h"
 
-static void	err_std_calloc2(char *msg)
-{
-	write(2, "Error\n", 6);
-	ft_putstr_fd("malloc of ", 2);
-	ft_putstr_fd(msg, 2);
-	ft_putstr_fd(" failed", 2);
-}
-
-void	*calloc2(size_t nmemb, size_t size, char *msg)
+void	*calloc2(size_t nmemb, size_t size)
 {
 	char	*tab;
 
 	if (!size || !nmemb)
 	{
 		tab = malloc(0);
-		if (!tab)
-		{
-			err_std_calloc2(msg);
-			return (NULL);
-		}
 		return (tab);
 	}
 	if ((nmemb * size) / nmemb != size)
-		return (0);
+		return (NULL);
 	tab = malloc(nmemb * size);
 	if (!tab)
 	{
-		err_std_calloc2(msg);
+		err_std("malloc failed");
 		return (NULL);
 	}
 	ft_bzero(tab, (nmemb * size));

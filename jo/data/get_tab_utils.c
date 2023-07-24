@@ -6,7 +6,7 @@
 /*   By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 22:59:35 by jbutte            #+#    #+#             */
-/*   Updated: 2023/07/24 03:07:22 by jbutte           ###   ########.fr       */
+/*   Updated: 2023/07/24 13:16:57 by jbutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	count_empty_lines(char **raw_tab)
 	i = 0;
 	y = 0;
 	size = 0;
-	while (raw_tab[y + 1])
+	while (raw_tab[y] && raw_tab[y + 1] && raw_tab[y + 1][0] != '\n')
 		y++;
 	while (raw_tab[y])
 	{

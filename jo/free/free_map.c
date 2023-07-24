@@ -6,7 +6,7 @@
 /*   By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 05:02:45 by jbutte            #+#    #+#             */
-/*   Updated: 2023/07/24 05:13:16 by jbutte           ###   ########.fr       */
+/*   Updated: 2023/07/24 14:51:23 by jbutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,10 @@
 
 void	free_map(t_map *map)
 {
-	free_tab((void **)map->tab, 0);
+	if (!map)
+		return ;
+	if (map->tab)
+		free_tab((void **)map->tab, 0);
 	if (color_f)
 		free(color_f);
 	if (color_c)
@@ -27,4 +30,5 @@ void	free_map(t_map *map)
 		free(we);
 	if (ea)
 		free(ea);
+	free(map);
 }

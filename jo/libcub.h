@@ -6,19 +6,13 @@
 /*   By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 14:38:40 by dafranco          #+#    #+#             */
-/*   Updated: 2023/07/24 05:42:12 by jbutte           ###   ########.fr       */
+/*   Updated: 2023/07/24 17:28:39 by jbutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBCUB_H
 # define LIBCUB_H
 
-//--------------------------------------------------------------------------//
-//	-							DEFINES										//
-//--------------------------------------------------------------------------//
-# define WIDTH 256
-# define HEIGHT 256
-# define PI 3.1415926535
 //--------------------------------------------------------------------------//
 //	- 							INCLUDES									//
 //--------------------------------------------------------------------------//
@@ -35,6 +29,27 @@
 //--------------------------------------------------------------------------//
 //	- 							VARIABLES									//
 //--------------------------------------------------------------------------//
+
+# define WIDTH 256
+# define HEIGHT 256
+# define PI 3.1415926535
+# define STOCK = 0
+# define RESET = -1
+# define RETURN = 1
+
+//--------------------------------------------------------------------------//
+//	- 							ERRORS										//
+//--------------------------------------------------------------------------//
+
+# define ERR_CUB_FILE "can' t open the .cub file"
+# define ERR_TEX_FILE "can' t open texture file"
+# define ERR_EXTENSION "this extension format is not allowed"
+# define ERR_TEX_FORMAT "invalid texture syntax"
+# define ERR_COLOR_FORMAT "invalid color syntax"
+# define ERR_COLOR_VALUE "invalid color value"
+# define ERR_TAB_NOT_VALID "invalid tab"
+# define MALLOC "malloc failed"
+# define EMPTY_BAIT "did you really try to trap us ?"
 
 //--------------------------------------------------------------------------//
 //	-							STRUCTURES									//
@@ -79,7 +94,7 @@ typedef struct s_data
 	void				*mlx_ptr;
 	void				*win_ptr;
 	char				*title;
-	struct s_map		map;
+	struct s_map		*map;
 	struct s_player		*player;
 }						t_data;
 
@@ -121,13 +136,14 @@ char					*stocker_color(int r, int g, int b, int action);
 int						checker(char *argv_1);
 
 //	checker_utils.c
+void					free_line(char *line);
 bool					check_residue(char *line);
 bool					check_color_format(char *line, int *i, bool last);
 char					*get_next_valid_line(int fd);
 
 //	checker_texture.c
 char					*get_texture_path(char *line, int *i);
-bool					check_texture_line(char *line, char *tex, int option);
+bool					check_texture_line(char *line, int dir);
 
 //	checker_tab.c
 bool					check_tab(char **tab);
@@ -139,17 +155,20 @@ bool					check_lines(char **tab);
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~./data/
 
 //	construtors.c
-t_map					map_constructor(void);
+t_map					*map_constructor(void);
 
 //	get_data.c
-t_data					get_data(int fd);
+t_data					*get_data(int fd, char *argv_1);
 
 //	get_map.c
+t_map					*get_map_tab(int fd, char *argv_1);
 
 //	get_map_utils.c
-bool					fill_texture(t_map *map, int fd, char *line, int tex_n);
-bool					set_colors(t_map *map, int fd);
-void					set_width_and_heigth(t_map *map);
+int						get_color_value(char *line, int *i);
+bool					fill_texture(t_map *map, int fd, char *line, int dir);
+
+//	get_raw_tab.c
+char					**get_raw_tab(int fd, char *argv_1);
 
 //	get_tab.c
 char					**get_raw_tab(int fd, char *argv_1);
@@ -158,6 +177,7 @@ char					**get_tab(char **tab);
 //	get_tab_utils.c
 char					*fd_line_cpy(char *line, int fd2);
 int						count_empty_lines(char **raw_tab);
+void					set_width_and_height(t_map *map);
 
 //	storage_texture.c
 char					*manage_stock_texture(char *tex_path, int option);

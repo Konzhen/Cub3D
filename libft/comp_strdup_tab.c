@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   comp_strdup_tab.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbutte <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 17:33:44 by jbutte            #+#    #+#             */
-/*   Updated: 2023/03/07 16:30:42 by jbutte           ###   ########.fr       */
+/*   Updated: 2023/07/24 10:19:29 by jbutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "libft.h"
 
 char	**strdup_tab(char **tab)
@@ -23,7 +24,7 @@ char	**strdup_tab(char **tab)
 		return (NULL);
 	while (tab[i])
 		i++;
-	cpy = ft_calloc(i + 1, sizeof(char *));
+	cpy = calloc2(i + 1, sizeof(char *));
 	if (!cpy)
 		return (NULL);
 	i = 0;

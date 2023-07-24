@@ -6,11 +6,34 @@
 /*   By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 14:55:27 by jbutte            #+#    #+#             */
-/*   Updated: 2023/07/24 04:37:31 by jbutte           ###   ########.fr       */
+/*   Updated: 2023/07/24 10:57:58 by jbutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libcub.h"
+
+static int	reach_texture_path(char *line, int dir)
+{
+	int		i;
+	char	*tex;
+
+	i = 0;
+	if (dir == 0)
+		tex = "NO";
+	if (dir == 1)
+		tex = "SO";
+	if (dir == 2)
+		tex = "WE";
+	if (dir == 3)
+		tex = "EA";
+	skip_spaces(line, &i);
+	if (ft_strncmp(&line[i], tex, 2))
+		return (-1);
+	i += 2;
+	if (!skip_spaces(line, &i))
+		return (-1);
+	return (i);
+}
 
 size_t	ft_strlcpy_texture(char *dest, const char *src, int *i, size_t size)
 {
@@ -46,39 +69,36 @@ char	*get_texture_path(char *line, int *i)
 		j++;
 		size++;
 	}
-	tex_path = ft_calloc(size + 1, sizeof(char));
+	tex_path = calloc2(size + 1, sizeof(char));
 	if (!tex_path)
 		return (NULL);
-	j = 0;
 	ft_strlcpy_texture(tex_path, line, i, size + 1);
-	if (check_residue(&line[*i]))
+	if (check_ext(tex_path, ".jpg") || check_residue(&line[*i]))
+	{
+		free(tex_path);
 		return (NULL);
+	}
 	return (tex_path);
 }
 
-bool	check_texture_line(char *line, char *tex, int option)
+bool	check_texture_line(char *line, int dir)
 {
 	char	*tex_path;
 	int		tmp;
 	int		i;
 
-	i = 0;
-	skip_spaces(line, &i);
-	if (ft_strncmp(&line[i], tex, 2))
-		return (true);
-	i += 2;
-	if (!skip_spaces(line, &i))
+	i = reach_texture_path(line, dir);
+	if (i == -1)
 		return (true);
 	tex_path = get_texture_path(line, &i);
-	if (!tex_path || check_ext(tex_path, ".jpg"))
-	{
-		if (tex_path)
-			free(tex_path);
+	if (!tex_path)
 		return (true);
-	}
 	tmp = open(tex_path, O_RDONLY);
 	if (tmp == -1)
-		return (err_std("failed to open file"));
+	{
+		free(tex_path);
+		return (true);
+	}
 	free(tex_path);
 	close(tmp);
 	return (false);

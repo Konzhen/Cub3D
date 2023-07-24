@@ -6,16 +6,17 @@
 #    By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/05 14:46:14 by dafranco          #+#    #+#              #
-#    Updated: 2023/07/24 05:45:48 by jbutte           ###   ########.fr        #
+#    Updated: 2023/07/24 10:14:32 by jbutte           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3d
 
-MY_SOURCES = 	main.c													\
+MY_SOURCES = 	main_test.c												\
 				map_init.c												\
 				map_fill.c												\
 				draw.c													\
+				stocker.c 												\
 				checker/checker.c										\
 				checker/checker_utils.c									\
 				checker/checker_texture.c								\
@@ -27,7 +28,6 @@ MY_SOURCES = 	main.c													\
 				data/get_tab_utils.c									\
 				data/get_map.c											\
 				data/get_map_utils.c									\
-				data/stocker.c 											\
 				data/movements.c 										\
 				data/game.c												\
 				free/free_map.c											\

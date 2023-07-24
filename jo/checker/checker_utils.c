@@ -6,7 +6,7 @@
 /*   By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 17:55:05 by jbutte            #+#    #+#             */
-/*   Updated: 2023/07/24 04:36:20 by jbutte           ###   ########.fr       */
+/*   Updated: 2023/07/24 11:46:18 by jbutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,18 @@ static char	*skip_empty_line(int fd)
 	if (!ft_strncmp(line, "EMPTY", 5))
 	{
 		free(line);
+		err_std(EMPTY_BAIT);
 		return (NULL);
 	}
 	if (skip_spaces(line, NULL) == -1)
 	{
 		free(line);
 		line = ft_strdup("EMPTY");
-		return (line);
+		if (!line)
+		{
+			err_std(MALLOC);
+			return (NULL);
+		}
 	}
 	return (line);
 }
@@ -49,14 +54,20 @@ bool	check_color_format(char *line, int *i, bool last)
 	skip_spaces(line, i);
 	color = ft_atoi(&line[*i]);
 	if (color < 0 || color > 255)
-		return (err_std("invalid color value"));
+	{
+		err_std(ERR_COLOR_VALUE);
+		return (true);
+	}
 	while (line[*i] >= '0' && line[*i] <= '9')
 		(*i)++;
 	if (!last)
 	{
 		skip_spaces(line, i);
 		if (line[*i] != ',')
-			return (err_std("invalid color value"));
+		{
+			err_std(ERR_COLOR_VALUE);
+			return (true);
+		}
 	}
 	(*i)++;
 	return (false);

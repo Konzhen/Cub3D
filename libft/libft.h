@@ -95,7 +95,7 @@ int		err_std(char *msg);
 void	err_cmd_bash(char *cmd);
 void	err_syntax_bash(char *cmd);
 int		check_argc(int argc, unsigned int min, unsigned int max);
-void	*calloc2(size_t nmemb, size_t size, char *msg);
+void	*calloc2(size_t nmemb, size_t size);
 size_t	tablen(void **tab);
 int		check_ext(const char *str, const char *ext);
 int		skip_spaces(const char *line, int *i);

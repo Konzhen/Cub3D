@@ -6,7 +6,7 @@
 /*   By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 16:35:10 by jbutte            #+#    #+#             */
-/*   Updated: 2023/07/23 19:31:59 by dafranco         ###   ########.fr       */
+/*   Updated: 2023/07/24 08:51:21 by jbutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static bool	check_colors(char *line, char *fc)
 
 	i = skip_spaces(line, NULL);
 	if (ft_strncmp(&line[i], fc, 1))
-		return (err_std("invalid color format\n"));
+		return (err_std(ERR_COLOR_FORMAT));
 	i++;
 	if ((line[i] < 7 || line[i] > 13) && line[i] != ' ')
 		return (true);
@@ -29,7 +29,7 @@ static bool	check_colors(char *line, char *fc)
 	if (check_color_format(line, &i, true))
 		return (true);
 	if (check_residue(&line[i]))
-		return (err_std("invalid color format\n"));
+		return (err_std(ERR_COLOR_FORMAT));
 	free(line);
 	return (false);
 }
@@ -101,7 +101,7 @@ char	**checker(char *argv_1)
 	fd = open(argv_1, O_RDONLY);
 	if (fd == -1)
 	{
-		err_std("can' t open the file");
+		err_std(ERR_CUB_FILE);
 		return (NULL);
 	}
 	if (check_valid_parameters(fd))

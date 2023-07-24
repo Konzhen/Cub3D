@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbutte <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 13:28:24 by jbutte            #+#    #+#             */
-/*   Updated: 2022/10/25 18:54:23 by jbutte           ###   ########.fr       */
+/*   Updated: 2023/07/24 10:19:10 by jbutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "libft.h"
 
 static int	ft_itoaalloc(int n)
@@ -54,7 +55,7 @@ char	*ft_itoa(int n)
 		return (dest);
 	}
 	nmb = ft_itoaalloc(n);
-	dest = ft_calloc(nmb + 1, sizeof(char));
+	dest = calloc2(nmb + 1, sizeof(char));
 	if (!dest)
 		return (NULL);
 	sign = ft_setsign(&n);
