@@ -6,7 +6,7 @@
 /*   By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 14:38:40 by dafranco          #+#    #+#             */
-/*   Updated: 2023/07/24 17:28:39 by jbutte           ###   ########.fr       */
+/*   Updated: 2023/07/25 15:14:30 by jbutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ typedef struct s_map
 typedef struct s_data
 {
 	void				*mlx_ptr;
-	void				*win_ptr;
 	char				*title;
 	struct s_map		*map;
 	struct s_player		*player;
@@ -130,6 +129,10 @@ void					move_forward(void *param);
 //	stocker.c
 char					*stocker_color(int r, int g, int b, int action);
 
+//	free_structs.c
+void					free_map(t_map *map);
+void					free_data(t_data *data);
+
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~./checker/
 
 //	checker.c
@@ -156,16 +159,20 @@ bool					check_lines(char **tab);
 
 //	construtors.c
 t_map					*map_constructor(void);
+t_player				*player_constructor(void);
+t_ray					*ray_constructor(void);
+t_data					*data_constructor(void);
 
 //	get_data.c
 t_data					*get_data(int fd, char *argv_1);
 
 //	get_map.c
-t_map					*get_map_tab(int fd, char *argv_1);
+t_map					*get_map(int fd, char *argv_1);
 
 //	get_map_utils.c
 int						get_color_value(char *line, int *i);
 bool					fill_texture(t_map *map, int fd, char *line, int dir);
+void					set_width_and_height(t_map *map);
 
 //	get_raw_tab.c
 char					**get_raw_tab(int fd, char *argv_1);
@@ -174,17 +181,7 @@ char					**get_raw_tab(int fd, char *argv_1);
 char					**get_raw_tab(int fd, char *argv_1);
 char					**get_tab(char **tab);
 
-//	get_tab_utils.c
-char					*fd_line_cpy(char *line, int fd2);
-int						count_empty_lines(char **raw_tab);
-void					set_width_and_height(t_map *map);
-
 //	storage_texture.c
 char					*manage_stock_texture(char *tex_path, int option);
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~./free/
-
-//	free_map.c
-void					free_map(t_map *map);
 
 #endif

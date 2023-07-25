@@ -6,11 +6,28 @@
 /*   By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 17:26:45 by jbutte            #+#    #+#             */
-/*   Updated: 2023/07/24 18:13:11 by jbutte           ###   ########.fr       */
+/*   Updated: 2023/07/25 13:18:26 by jbutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libcub.h"
+
+static char	*fd_line_cpy(char *line, int fd2)
+{
+	char	*tmp;
+
+	tmp = get_next_line(fd2);
+	if (!tmp)
+		return (NULL);
+	while (ft_strncmp(tmp, line, ft_strlen(line)))
+	{
+		free(tmp);
+		tmp = get_next_valid_line(fd2);
+		if (!tmp)
+			return (NULL);
+	}
+	return (tmp);
+}
 
 static int	set_tab_size(char *line, int fd2)
 {

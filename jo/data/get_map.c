@@ -6,7 +6,7 @@
 /*   By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 18:41:32 by jbutte            #+#    #+#             */
-/*   Updated: 2023/07/24 18:01:44 by jbutte           ###   ########.fr       */
+/*   Updated: 2023/07/25 14:53:05 by jbutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static bool	set_map(t_map *map, int fd)
 	return (false);
 }
 
-t_map	*get_map_tab(int fd, char *argv_1)
+t_map	*get_map(int fd, char *argv_1)
 {
 	t_map	*map;
 	char	**tab;
@@ -82,9 +82,13 @@ t_map	*get_map_tab(int fd, char *argv_1)
 	}
 	if (check_tab(map->tab))
 	{
-		free_tab((void **)map->tab, 0);
-		free(map);
+		free_map(map);
 		err_std(ERR_TAB_NOT_VALID);
+		return (NULL);
+	}
+	if (set_map(map, fd))
+	{
+		free_map(map);
 		return (NULL);
 	}
 	return (map);

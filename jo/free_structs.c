@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_map.c                                         :+:      :+:    :+:   */
+/*   free_structs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 05:02:45 by jbutte            #+#    #+#             */
-/*   Updated: 2023/07/24 14:51:23 by jbutte           ###   ########.fr       */
+/*   Updated: 2023/07/25 15:14:48 by jbutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libcub.h"
+#include "libcub.h"
 
 void	free_map(t_map *map)
 {
@@ -18,17 +18,30 @@ void	free_map(t_map *map)
 		return ;
 	if (map->tab)
 		free_tab((void **)map->tab, 0);
-	if (color_f)
-		free(color_f);
-	if (color_c)
-		free(color_c);
-	if (no)
-		free(no);
-	if (so)
-		free(so);
-	if (we)
-		free(we);
-	if (ea)
-		free(ea);
+	if (map->color_f)
+		free(map->color_f);
+	if (map->color_c)
+		free(map->color_c);
+	if (map->no)
+		free(map->no);
+	if (map->so)
+		free(map->so);
+	if (map->we)
+		free(map->we);
+	if (map->ea)
+		free(map->ea);
 	free(map);
+}
+
+void	free_data(t_data *data)
+{
+	if (data->mlx_ptr)
+		free(data->mlx_ptr);
+	if (data->title)
+		free(data->title);
+	if (data->map)
+		free_map(data->map);
+	if (data->player)
+		free_player(data->player);
+	free(data);
 }
