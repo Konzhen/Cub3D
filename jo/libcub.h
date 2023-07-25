@@ -6,7 +6,7 @@
 /*   By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 14:38:40 by dafranco          #+#    #+#             */
-/*   Updated: 2023/07/24 17:28:39 by jbutte           ###   ########.fr       */
+/*   Updated: 2023/07/25 20:54:55 by jbutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@
 # define WIDTH 256
 # define HEIGHT 256
 # define PI 3.1415926535
-# define STOCK = 0
-# define RESET = -1
-# define RETURN = 1
+# define STOCK_ACTION = 0
+# define RESET_ACTION = -1
+# define RETURN_ACTION = 1
 
 //--------------------------------------------------------------------------//
 //	- 							ERRORS										//
@@ -92,7 +92,6 @@ typedef struct s_map
 typedef struct s_data
 {
 	void				*mlx_ptr;
-	void				*win_ptr;
 	char				*title;
 	struct s_map		*map;
 	struct s_player		*player;
@@ -127,8 +126,15 @@ int						stocker(int i);
 //	movements.c
 void					move_forward(void *param);
 
-//	stocker.c
-char					*stocker_color(int r, int g, int b, int action);
+//	free_structs.c
+void					free_map(t_map *map);
+void					free_player(t_player *player);
+void					free_data(t_data *data);
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~./checker/
+
+char					*get_next_valid_line(int fd);
+char					*get_texture_path(char *line, int *i);
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~./checker/
 
@@ -136,13 +142,10 @@ char					*stocker_color(int r, int g, int b, int action);
 int						checker(char *argv_1);
 
 //	checker_utils.c
-void					free_line(char *line);
 bool					check_residue(char *line);
 bool					check_color_format(char *line, int *i, bool last);
-char					*get_next_valid_line(int fd);
 
 //	checker_texture.c
-char					*get_texture_path(char *line, int *i);
 bool					check_texture_line(char *line, int dir);
 
 //	checker_tab.c
@@ -156,16 +159,27 @@ bool					check_lines(char **tab);
 
 //	construtors.c
 t_map					*map_constructor(void);
+t_player				*player_constructor(void);
+t_ray					*ray_constructor(void);
+t_data					*data_constructor(void);
 
 //	get_data.c
 t_data					*get_data(int fd, char *argv_1);
 
+//	get_hexa_color.c
+char					*get_hexa_color(int r, int g, int b, int action);
+
+//	get_player.c
+t_player				*get_player(char **tab);
+
 //	get_map.c
-t_map					*get_map_tab(int fd, char *argv_1);
+bool					set_map(t_map *map, int fd);
+t_map					*get_map(int fd, char *argv_1);
 
 //	get_map_utils.c
 int						get_color_value(char *line, int *i);
-bool					fill_texture(t_map *map, int fd, char *line, int dir);
+bool					fill_texture(t_map *map, char *line, int dir);
+void					get_width_and_height(t_map *map);
 
 //	get_raw_tab.c
 char					**get_raw_tab(int fd, char *argv_1);
@@ -173,18 +187,5 @@ char					**get_raw_tab(int fd, char *argv_1);
 //	get_tab.c
 char					**get_raw_tab(int fd, char *argv_1);
 char					**get_tab(char **tab);
-
-//	get_tab_utils.c
-char					*fd_line_cpy(char *line, int fd2);
-int						count_empty_lines(char **raw_tab);
-void					set_width_and_height(t_map *map);
-
-//	storage_texture.c
-char					*manage_stock_texture(char *tex_path, int option);
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~./free/
-
-//	free_map.c
-void					free_map(t_map *map);
 
 #endif

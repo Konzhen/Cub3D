@@ -6,32 +6,33 @@
 #    By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/05 14:46:14 by dafranco          #+#    #+#              #
-#    Updated: 2023/07/24 10:14:32 by jbutte           ###   ########.fr        #
+#    Updated: 2023/07/25 19:52:39 by jbutte           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3d
 
-MY_SOURCES = 	main_test.c												\
-				map_init.c												\
-				map_fill.c												\
-				draw.c													\
-				stocker.c 												\
-				checker/checker.c										\
-				checker/checker_utils.c									\
-				checker/checker_texture.c								\
-				checker/checker_tab.c									\
-				checker/checker_lines_and_columns.c						\
-				data/constructors.c										\
-				data/get_data.c											\
-				data/get_tab.c											\
-				data/get_tab_utils.c									\
-				data/get_map.c											\
-				data/get_map_utils.c									\
-				data/movements.c 										\
-				data/game.c												\
-				free/free_map.c											\
-
+MY_SOURCES = 	main_test.c										\
+				map_init.c										\
+				map_fill.c										\
+				draw.c											\
+				stocker.c 										\
+				free_structs.c									\
+				utils/get_next_valid_line.c						\
+				utils/get_hexa_color.c							\
+				checker/checker.c								\
+				checker/checker_utils.c							\
+				checker/checker_texture.c						\
+				checker/checker_tab.c							\
+				checker/checker_lines_and_columns.c				\
+				data/constructors.c								\
+				data/get_data.c									\
+				data/get_map_utils.c							\
+				data/get_map.c									\
+				data/get_raw_tab.c								\
+				data/get_tab.c									\
+				data/movements.c 								\
+				data/game.c										\
 
 MY_OBJECTS = $(MY_SOURCES:%.c=%.o)
 

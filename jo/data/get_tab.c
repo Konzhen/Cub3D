@@ -6,20 +6,47 @@
 /*   By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 15:45:18 by jbutte            #+#    #+#             */
-/*   Updated: 2023/07/24 17:57:50 by jbutte           ###   ########.fr       */
+/*   Updated: 2023/07/25 16:49:00 by jbutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libcub.h"
 
-static bool	get_new_tab(char **raw_tab, int size)
+static int	count_empty_lines(char **raw_tab)
+{
+	int	i;
+	int	y;
+	int	size;
+
+	i = 0;
+	y = 0;
+	size = 0;
+	while (raw_tab[y] && raw_tab[y + 1] && raw_tab[y + 1][0] != '\n')
+		y++;
+	while (raw_tab[y])
+	{
+		while (raw_tab[y][i])
+		{
+			if (raw_tab[y][i] != ' ' && (raw_tab[y][i] < 7
+					|| raw_tab[y][i] > 13))
+				return (size);
+			i++;
+		}
+		size++;
+		y--;
+		i = 0;
+	}
+	return (0);
+}
+
+static char	**get_new_tab(char **raw_tab, int size)
 {
 	char	**tab;
 	int		i;
 
 	tab = calloc2(size + 1, sizeof(char *));
 	if (!tab)
-		return (true);
+		return (NULL);
 	i = 0;
 	while (i < size)
 	{
@@ -27,11 +54,11 @@ static bool	get_new_tab(char **raw_tab, int size)
 		if (!tab[i])
 		{
 			free_tab((void **)tab, 0);
-			return (true);
+			return (NULL);
 		}
 		i++;
 	}
-	return (false);
+	return (tab);
 }
 
 static int	get_new_size(char **raw_tab)
@@ -44,6 +71,7 @@ static int	get_new_size(char **raw_tab)
 	size -= count_empty_lines(raw_tab);
 	if (!size)
 		return (-1);
+	return (size);
 }
 
 char	**get_tab(char **raw_tab)
