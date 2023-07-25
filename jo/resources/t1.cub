@@ -1,8 +1,8 @@
 
-NO          no.jpg          
-SO so.jpg
-        WE we.jpg
-EA ea.jpg
+NO          resources/no.jpg          
+SO resources/so.jpg
+        WE resources/we.jpg
+EA resources/ea.jpg
 
           F            220, 100,          0
 C 225, 30, 0        

@@ -6,7 +6,7 @@
 /*   By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 04:43:43 by jbutte            #+#    #+#             */
-/*   Updated: 2023/07/25 14:53:49 by jbutte           ###   ########.fr       */
+/*   Updated: 2023/07/25 19:57:55 by jbutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,15 @@ int	get_color_value(char *line, int *i)
 	return (color);
 }
 
-bool	fill_texture(t_map *map, int fd, char *line, int dir)
+bool	fill_texture(t_map *map, char *line, int dir)
 {
 	char	*tex_path;
-	int		tmp;
 	int		i;
 
 	i = 0;
 	skip_spaces(line, &i);
 	i += 2;
+	skip_spaces(line, &i);
 	tex_path = get_texture_path(line, &i);
 	if (!tex_path)
 		return (true);
@@ -48,7 +48,7 @@ bool	fill_texture(t_map *map, int fd, char *line, int dir)
 	return (false);
 }
 
-void	set_width_and_height(t_map *map)
+void	get_width_and_height(t_map *map)
 {
 	int	y;
 	int	x;

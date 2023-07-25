@@ -6,7 +6,7 @@
 /*   By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 15:45:18 by jbutte            #+#    #+#             */
-/*   Updated: 2023/07/25 13:49:34 by jbutte           ###   ########.fr       */
+/*   Updated: 2023/07/25 16:49:00 by jbutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,14 @@ static int	count_empty_lines(char **raw_tab)
 	return (0);
 }
 
-static bool	get_new_tab(char **raw_tab, int size)
+static char	**get_new_tab(char **raw_tab, int size)
 {
 	char	**tab;
 	int		i;
 
 	tab = calloc2(size + 1, sizeof(char *));
 	if (!tab)
-		return (true);
+		return (NULL);
 	i = 0;
 	while (i < size)
 	{
@@ -54,11 +54,11 @@ static bool	get_new_tab(char **raw_tab, int size)
 		if (!tab[i])
 		{
 			free_tab((void **)tab, 0);
-			return (true);
+			return (NULL);
 		}
 		i++;
 	}
-	return (false);
+	return (tab);
 }
 
 static int	get_new_size(char **raw_tab)
@@ -71,6 +71,7 @@ static int	get_new_size(char **raw_tab)
 	size -= count_empty_lines(raw_tab);
 	if (!size)
 		return (-1);
+	return (size);
 }
 
 char	**get_tab(char **raw_tab)

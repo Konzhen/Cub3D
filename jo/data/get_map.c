@@ -6,7 +6,7 @@
 /*   By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 18:41:32 by jbutte            #+#    #+#             */
-/*   Updated: 2023/07/25 14:53:05 by jbutte           ###   ########.fr       */
+/*   Updated: 2023/07/25 17:48:59 by jbutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ static char	*set_colors(int fd)
 	g = get_color_value(line, &i);
 	b = get_color_value(line, &i);
 	free(line);
-	return (ft_strdup(stocker_color(r, g, b, 0)));
+	get_hexa_color(r, g, b, 0);
+	return (ft_strdup(get_hexa_color(r, g, b, 1)));
 }
 
 static bool	set_textures(t_map *map, int fd)
@@ -43,7 +44,7 @@ static bool	set_textures(t_map *map, int fd)
 		line = get_next_valid_line(fd);
 		if (!line)
 			return (true);
-		if (fill_texture(&map, fd, line, dir))
+		if (fill_texture(map, line, dir))
 		{
 			free(line);
 			return (true);
@@ -54,24 +55,24 @@ static bool	set_textures(t_map *map, int fd)
 	return (false);
 }
 
-static bool	set_map(t_map *map, int fd)
+bool	set_map(t_map *map, int fd)
 {
 	if (set_textures(map, fd))
 		return (true);
 	map->color_f = set_colors(fd);
 	if (!map->color_f)
 		return (true);
+	get_hexa_color(0, 0, 0, -1);
 	map->color_c = set_colors(fd);
 	if (!map->color_c)
 		return (true);
-	set_width_and_heigth(map);
+	get_width_and_height(map);
 	return (false);
 }
 
 t_map	*get_map(int fd, char *argv_1)
 {
 	t_map	*map;
-	char	**tab;
 
 	map = map_constructor();
 	map->tab = get_tab(get_raw_tab(fd, argv_1));
@@ -84,11 +85,6 @@ t_map	*get_map(int fd, char *argv_1)
 	{
 		free_map(map);
 		err_std(ERR_TAB_NOT_VALID);
-		return (NULL);
-	}
-	if (set_map(map, fd))
-	{
-		free_map(map);
 		return (NULL);
 	}
 	return (map);

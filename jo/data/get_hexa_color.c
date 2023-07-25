@@ -1,19 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stocker.c                                          :+:      :+:    :+:   */
+/*   get_hexa_color.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dafranco <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 00:24:48 by dafranco          #+#    #+#             */
-/*   Updated: 2023/07/24 04:47:57 by dafranco         ###   ########.fr       */
+/*   Updated: 2023/07/25 19:52:06 by jbutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libcub.h"
-
-static char	*itohex(unsigned int nb);
-static void	ft_cpy(char *str1, char *str2);
 
 static void	ft_cpy(char *str1, char *str2)
 {
@@ -31,27 +28,9 @@ static void	ft_cpy(char *str1, char *str2)
 	return ;
 }
 
-char	*stocker_color(int r, int g, int b, int action)
-{
-	static char	hexacolor[6];
-	int			i;
-
-	if (action == 0)
-	{
-		ft_cpy(itohex(r), (&hexacolor[0]));
-		ft_cpy(itohex(g), (&hexacolor[2]));
-		ft_cpy(itohex(b), (&hexacolor[4]));
-	}
-	else if (action == -1)
-		hexacolor[0] = '\0';
-	else if (action > 0)
-		return (hexacolor);
-	return (NULL);
-}
-
 static char	*itohex(unsigned int nb)
 {
-	static char	hex[2];
+	static char	hex[3];
 
 	if (hex[1] != '\0')
 	{
@@ -67,4 +46,21 @@ static char	*itohex(unsigned int nb)
 		hex[ft_strlen(hex)] = ('0' + (nb % 16));
 	hex[2] = '\0';
 	return (hex);
+}
+
+char	*get_hexa_color(int r, int g, int b, int action)
+{
+	static char	hexacolor[7];
+
+	if (action == 0)
+	{
+		ft_cpy(itohex(r), (&hexacolor[0]));
+		ft_cpy(itohex(g), (&hexacolor[2]));
+		ft_cpy(itohex(b), (&hexacolor[4]));
+	}
+	else if (action == -1)
+		hexacolor[0] = '\0';
+	else if (action > 0)
+		return (hexacolor);
+	return (NULL);
 }

@@ -2,24 +2,24 @@
 
 int	main(int argc, char **argv)
 {
-	int	fd;
+	int		fd;
+	t_data	*data;
 
-	if (argc != 2)
+	if (check_argc(argc, 2, 2))
 		return (1);
 	fd = checker(argv[1]);
 	if (fd == -1)
 	{
-		printf("false");
+		printf("error_1\n");
 		return (1);
 	}
-	char **tab = get_tab(get_raw_tab(fd, argv[1]));
-	if (!tab)
-		return (1);
-	if (check_tab(tab))
+	data = get_data(fd, argv[1]);
+	if (!data)
 	{
-		free_tab((void **)tab, 0);
-		printf("false");
+		printf("error_2\n");
 		return (1);
 	}
-	free_tab((void **)tab, 0);
+	/*printf("x:%f y:%f start:%c", data->player->pos_x,
+		data->player->pos_y, data->player->start);*/
+	free_data(data);
 }
