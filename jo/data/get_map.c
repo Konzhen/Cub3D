@@ -6,13 +6,13 @@
 /*   By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 18:41:32 by jbutte            #+#    #+#             */
-/*   Updated: 2023/07/25 17:48:59 by jbutte           ###   ########.fr       */
+/*   Updated: 2023/07/26 17:46:41 by jbutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libcub.h"
 
-static char	*set_colors(int fd)
+static bool	set_colors(int fd, bool floor)
 {
 	char	*line;
 	int		i;
@@ -22,15 +22,18 @@ static char	*set_colors(int fd)
 
 	line = get_next_valid_line(fd);
 	if (!line)
-		return (NULL);
+		return (true);
 	i = skip_spaces(line, NULL);
 	i++;
 	r = get_color_value(line, &i);
 	g = get_color_value(line, &i);
 	b = get_color_value(line, &i);
 	free(line);
-	get_hexa_color(r, g, b, 0);
-	return (ft_strdup(get_hexa_color(r, g, b, 1)));
+	if (floor)
+		get_floor_color(r, g, b, 0);
+	else
+		get_ceiling_color(r, g, b, 0);
+	return (false);
 }
 
 static bool	set_textures(t_map *map, int fd)
@@ -59,12 +62,9 @@ bool	set_map(t_map *map, int fd)
 {
 	if (set_textures(map, fd))
 		return (true);
-	map->color_f = set_colors(fd);
-	if (!map->color_f)
+	if (set_colors(fd, true))
 		return (true);
-	get_hexa_color(0, 0, 0, -1);
-	map->color_c = set_colors(fd);
-	if (!map->color_c)
+	if (set_colors(fd, false))
 		return (true);
 	get_width_and_height(map);
 	return (false);

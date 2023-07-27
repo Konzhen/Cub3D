@@ -3,22 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dafranco <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 22:57:19 by dafranco          #+#    #+#             */
-/*   Updated: 2023/07/23 23:05:44 by dafranco         ###   ########.fr       */
+/*   Updated: 2023/07/27 13:34:27 by jbutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libcub.h"
+#include "libcub.h"
 
-void	init_game(t_data data)
+void	init_game(t_data *data)
 {
 	data->mlx_ptr = mlx_init(WIDTH, HEIGHT, "A-MAZE-ING", true);
 }
 
-void	ft_loops(t_data data)
+void	ft_loops(t_data *data)
 {
-	mlx_loop_hook(data->mlx_ptr, ft_player, data->mlx_ptr);
-	mlx_loop_hook(data->mlx_ptr, move_forward, data->mlx_ptr);
+	mlx_loop_hook(data->mlx_ptr, move_forward, data);
+	mlx_loop_hook(data->mlx_ptr, move_backward, data);
+	mlx_loop_hook(data->mlx_ptr, move_left, data);
+	mlx_loop_hook(data->mlx_ptr, move_right, data);
+	mlx_loop(data->mlx_ptr);
 }

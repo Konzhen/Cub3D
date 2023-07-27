@@ -6,11 +6,25 @@
 /*   By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 19:24:01 by jbutte            #+#    #+#             */
-/*   Updated: 2023/07/25 20:52:46 by jbutte           ###   ########.fr       */
+/*   Updated: 2023/07/27 20:35:16 by jbutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libcub.h"
+
+static void	set_player_dir(t_player *player)
+{
+	if (player->start == 'N')
+		player->angle = PI / 2;
+	if (player->start == 'S')
+		player->angle = (3 * PI) / 2;
+	if (player->start == 'E')
+		player->angle = 0;
+	if (player->start == 'W')
+		player->angle = PI;
+	player->dir_x = cos(player->angle) * 3;
+	player->dir_y = sin(player->angle) * 3;
+}
 
 static void	set_player_pos(t_player *player, char **tab)
 {
@@ -35,6 +49,7 @@ static void	set_player_pos(t_player *player, char **tab)
 		y++;
 		x = 0;
 	}
+	set_player_dir(player);
 }
 
 t_player	*get_player(char **tab)
