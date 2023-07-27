@@ -6,7 +6,7 @@
 /*   By: dafranco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 10:12:53 by dafranco          #+#    #+#             */
-/*   Updated: 2023/07/24 23:31:39 by dafranco         ###   ########.fr       */
+/*   Updated: 2023/07/27 20:04:42 by dafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libcub.h"
@@ -23,48 +23,26 @@ void	draw_ext(t_data *data)
 	mlx_loop_hook(data->mlx_ptr, draw_floor, data->floor);
 }
 
-void	draw_ceilling(void *arg)
-{
-	uint32_t	x;
-	uint32_t	y;
-	t_data		*data;
+void	draw_background(void *param)
+{	
+	mlx_image_t	*img;
+	int			x;
+	int			y;
 
-	data->ceilling = arg;
 	x = 0;
 	y = 0;
-	while (y < HEIGHT / 2 && x < WIDTH)
+	img = param;
+	while (y < HEIGHT)
 	{
 		while (x < WIDTH)
 		{
-			mlx_put_pixel(data->ceilling, x, y, ft_atoi(data->map.color_c));
+			if (y < HEIGHT / 2)
+				mlx_put_pixel(img, x, y, 0xAAFFAA);
+			else
+				mlx_put_pixel(img, x, y, 0xFF0066);
 			++x;
 		}
-		++y;
-		if (y == HEIGHT / 2 && x == WIDTH)
-			break ;
 		x = 0;
-	}
-}
-
-void	draw_floor(void *arg)
-{
-	uint32_t	x;
-	uint32_t	y;
-	t_data		*data;
-
-	data->floor = arg;
-	x = 0;
-	y = 0;
-	while (y < HEIGHT && x < WIDTH)
-	{
-		while (x < WIDTH)
-		{
-			mlx_put_pixel(data->floor, x, y, ft_atoi(data->map.color_f));
-			++x;
-		}
-		++y;
-		if (y == HEIGHT && x == WIDTH)
-			break ;
-		x = 0;
+		y++;
 	}
 }

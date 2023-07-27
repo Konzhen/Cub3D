@@ -6,7 +6,7 @@
 /*   By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 14:38:40 by dafranco          #+#    #+#             */
-/*   Updated: 2023/07/24 22:45:36 by dafranco         ###   ########.fr       */
+/*   Updated: 2023/07/27 20:05:43 by dafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,8 +149,8 @@ char	*fill_line(const char *str);
 
 //	draw.c
 void	draw_map(t_data *mlx);
-void	draw_ceilling(void *arg);
-void	draw_floor(void *arg);
+void	draw_background(void *param);
+void	draw_ext(t_data *data);
 //void	draw_all(void *);
 
 //	main.c
