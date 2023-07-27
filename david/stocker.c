@@ -6,7 +6,7 @@
 /*   By: dafranco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 00:24:48 by dafranco          #+#    #+#             */
-/*   Updated: 2023/07/24 06:54:10 by dafranco         ###   ########.fr       */
+/*   Updated: 2023/07/27 21:02:05 by dafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,54 +15,24 @@
 static char	*itohex(unsigned int nb);
 static void	ft_cpy(char *str1, char *str2);
 
-static void	ft_cpy(char *str1, char *str2)
+uint32_t	get_color_c(int r, int g, int b, int action)
 {
-	int	i;
-	int	j;
-
-	i = 0;
-	j = ft_strlen(str2);
-	while (str1[i])
-	{
-		str2[i + j] = str1[i];
-		i++;
-	}
-	str2[i + j] = '\0';
-	return ;
-}
-
-char	*stocker_color(int r, int g, int b, int action)
-{
-	static char	hexacolor[6];
+	static uint32_t	hexacolor;
 
 	if (action == 0)
-	{
-		ft_cpy(itohex(r), (&hexacolor[0]));
-		ft_cpy(itohex(g), (&hexacolor[2]));
-		ft_cpy(itohex(b), (&hexacolor[4]));
-	}
-	else if (action == -1)
-		hexacolor[0] = '\0';
+		hexacolor = ((1 << 24) + (r << 16) + (g << 8) + b);
 	else if (action > 0)
 		return (hexacolor);
-	return (NULL);
+	return (0);
 }
 
-static char	*itohex(unsigned int nb)
+uint32_t	stocker_color_f(int r, int g, int b, int action)
 {
-	static char	hex[2];
+	static uint32_t	hexacolor;
 
-	if (hex[1] != '\0')
-	{
-		hex[0] = '\0';
-		hex[1] = '\0';
-		itohex(nb);
-	}
-	if (nb / 16 > 0)
-		itohex(nb / 16);
-	if (nb % 16 >= 10)
-		hex[ft_strlen(hex)] = ('A' + (nb % 16) % 10);
-	else
-		hex[ft_strlen(hex)] = ('0' + (nb % 16));
-	return (hex);
+	if (action == 0)
+		hexacolor = ((1 << 24) + (r << 16) + (g << 8) + b);
+	else if (action > 0)
+		return (hexacolor);
+	return (0);
 }

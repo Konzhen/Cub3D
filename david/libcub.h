@@ -6,7 +6,7 @@
 /*   By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 14:38:40 by dafranco          #+#    #+#             */
-/*   Updated: 2023/07/27 20:05:43 by dafranco         ###   ########.fr       */
+/*   Updated: 2023/07/27 21:01:45 by dafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,7 @@ typedef struct s_map
 
 typedef struct s_data
 {
-	mlx_image_t			*floor;
-	mlx_image_t			*ceilling;
+	mlx_image_t			*background;
 	void				*mlx_ptr;
 	void				*win_ptr;
 	char				*title;
@@ -110,67 +109,68 @@ typedef struct s_data
 //	-							FUNCTIONS									//
 //--------------------------------------------------------------------------//
 
-int		render(int params, char **argv);
-bool	parser(int argc, char **argv);
-int		init(int argc, char **argv);
-int		scanlines(int pos_player, int pos_map);
-int		error(int i);
-int		stocker(int i);
+int			render(int params, char **argv);
+bool		parser(int argc, char **argv);
+int			init(int argc, char **argv);
+int			scanlines(int pos_player, int pos_map);
+int			error(int i);
+int			stocker(int i);
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~./parsing/checker/
 
 //	checker.c
-char	**checker(char *argv_1);
+char		**checker(char *argv_1);
 
 //	checker_utils.c
-bool	check_residue(char *line);
-bool	check_color_format(char *line, int *i, bool last);
-char	*get_next_valid_line(int fd);
+bool		check_residue(char *line);
+bool		check_color_format(char *line, int *i, bool last);
+char		*get_next_valid_line(int fd);
 
 //	checker_texture.c
-bool	check_texture_line(char *line, char *tex);
+bool		check_texture_line(char *line, char *tex);
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~./parsing/checker/chercker_tab/
 
 //	checker_get_tab.c
-char	**get_raw_tab(int fd, char *argv);
-char	**get_tab(char **tab);
+char		**get_raw_tab(int fd, char *argv);
+char		**get_tab(char **tab);
 
 //	checker_tab.c
-bool	check_tab(char **tab);
+bool		check_tab(char **tab);
 
 // checker_lines_and_columns.c
-bool	check_columns(char **tab);
-bool	check_lines(char **tab);
+bool		check_columns(char **tab);
+bool		check_lines(char **tab);
 
 //	map_fill.c
-void	fill_tab(char **blueprint, char ***tab, size_t y);
-char	*fill_line(const char *str);
+void		fill_tab(char **blueprint, char ***tab, size_t y);
+char		*fill_line(const char *str);
 
 //	draw.c
-void	draw_map(t_data *mlx);
-void	draw_background(void *param);
-void	draw_ext(t_data *data);
+void		draw_map(t_data *mlx);
+void		draw_background(void *param);
+void		draw_ext(t_data *data);
 //void	draw_all(void *);
 
 //	main.c
-void	draw_player(t_data mlx);
-void	ft_player(void *param);
+void		draw_player(t_data mlx);
+void		ft_player(void *param);
 
 //	draw_ray.c
-void	draw_line(void *param);
+void		draw_line(void *param);
 
 //	movements.c
-void	move_forward(void *param);
-void	move_backward(void *param);
-void	move_left(void *param);
-void	move_right(void *param);
+void		move_forward(void *param);
+void		move_backward(void *param);
+void		move_left(void *param);
+void		move_right(void *param);
 
 //	stocker.c
-char	*stocker_color(int r, int g, int b, int action);
+uint32_t	get_color_c(int r, int g, int b, int action);
+uint32_t	get_color_f(int r, int g, int b, int action);
 
 //	game.c
-void	init_game(t_data *data);
-void	ft_loops(t_data *data);
+void		init_game(t_data *data);
+void		ft_loops(t_data *data);
 
 #endif
