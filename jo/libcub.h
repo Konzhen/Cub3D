@@ -6,7 +6,7 @@
 /*   By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 14:38:40 by dafranco          #+#    #+#             */
-/*   Updated: 2023/07/25 20:54:55 by jbutte           ###   ########.fr       */
+/*   Updated: 2023/07/27 20:03:05 by jbutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@
 //	- 							VARIABLES									//
 //--------------------------------------------------------------------------//
 
-# define WIDTH 256
-# define HEIGHT 256
+# define WIDTH 860
+# define HEIGHT 840
 # define PI 3.1415926535
 # define STOCK_ACTION = 0
 # define RESET_ACTION = -1
@@ -66,11 +66,13 @@ typedef struct s_ray
 
 typedef struct s_player
 {
+	mlx_image_t			*info;
 	char				start;
 	double				pos_x;
 	double				pos_y;
 	double				dir_x;
 	double				dir_y;
+	double				angle;
 	double				lvl_x;
 	double				lvl_y;
 	struct s_ray		*ray;
@@ -81,8 +83,6 @@ typedef struct s_map
 	char				**tab;
 	int					width;
 	int					height;
-	char				*color_f;
-	char				*color_c;
 	char				*no;
 	char				*so;
 	char				*we;
@@ -92,6 +92,8 @@ typedef struct s_map
 typedef struct s_data
 {
 	void				*mlx_ptr;
+	mlx_image_t			*floor;
+	mlx_image_t			*ceilling;
 	char				*title;
 	struct s_map		*map;
 	struct s_player		*player;
@@ -108,7 +110,7 @@ void					fill_tab(char **blueprint, char ***tab, size_t y);
 char					*fill_line(const char *str);
 
 //	draw.c
-void					draw_map(t_data mlx);
+void					draw_floor_and_ceiling(t_data *data);
 
 //	main.c
 void					draw_player(t_data *mlx);
@@ -125,6 +127,10 @@ int						stocker(int i);
 
 //	movements.c
 void					move_forward(void *param);
+void					move_backward(void *param);
+void					move_left(void *param);
+void					move_right(void *param);
+
 
 //	free_structs.c
 void					free_map(t_map *map);
@@ -133,6 +139,7 @@ void					free_data(t_data *data);
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~./checker/
 
+double					get_degree(double pi_rate);
 char					*get_next_valid_line(int fd);
 char					*get_texture_path(char *line, int *i);
 
@@ -167,7 +174,8 @@ t_data					*data_constructor(void);
 t_data					*get_data(int fd, char *argv_1);
 
 //	get_hexa_color.c
-char					*get_hexa_color(int r, int g, int b, int action);
+char					*get_floor_color(int r, int g, int b, bool set);
+char					*get_ceiling_color(int r, int g, int b, bool set);
 
 //	get_player.c
 t_player				*get_player(char **tab);

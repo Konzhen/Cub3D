@@ -6,7 +6,7 @@
 #    By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/05 14:46:14 by dafranco          #+#    #+#              #
-#    Updated: 2023/07/25 19:52:39 by jbutte           ###   ########.fr        #
+#    Updated: 2023/07/27 13:35:09 by jbutte           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,9 +15,12 @@ NAME = cub3d
 MY_SOURCES = 	main_test.c										\
 				map_init.c										\
 				map_fill.c										\
+				game.c											\
 				draw.c											\
 				stocker.c 										\
+				movements.c 									\
 				free_structs.c									\
+				utils/get_degree.c								\
 				utils/get_next_valid_line.c						\
 				utils/get_hexa_color.c							\
 				checker/checker.c								\
@@ -29,10 +32,9 @@ MY_SOURCES = 	main_test.c										\
 				data/get_data.c									\
 				data/get_map_utils.c							\
 				data/get_map.c									\
+				data/get_player.c								\
 				data/get_raw_tab.c								\
 				data/get_tab.c									\
-				data/movements.c 								\
-				data/game.c										\
 
 MY_OBJECTS = $(MY_SOURCES:%.c=%.o)
 

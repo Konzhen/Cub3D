@@ -6,7 +6,7 @@
 /*   By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 22:48:15 by jbutte            #+#    #+#             */
-/*   Updated: 2023/07/25 16:49:59 by jbutte           ###   ########.fr       */
+/*   Updated: 2023/07/26 17:39:16 by jbutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ t_data	*data_constructor(void)
 	data = calloc2(1, sizeof(t_data));
 	if (!data)
 		return (NULL);
+	data->floor = NULL;
+	data->ceilling = NULL;
 	data->mlx_ptr = NULL;
 	data->title = NULL;
 	data->map = NULL;

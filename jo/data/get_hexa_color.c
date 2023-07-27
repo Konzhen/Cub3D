@@ -6,7 +6,7 @@
 /*   By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 00:24:48 by dafranco          #+#    #+#             */
-/*   Updated: 2023/07/25 19:52:06 by jbutte           ###   ########.fr       */
+/*   Updated: 2023/07/27 20:38:46 by jbutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static char	*itohex(unsigned int nb)
 	return (hex);
 }
 
-char	*get_hexa_color(int r, int g, int b, int action)
+char	*get_floor_color(int r, int g, int b, bool set)
 {
 	static char	hexacolor[7];
 
@@ -58,9 +58,18 @@ char	*get_hexa_color(int r, int g, int b, int action)
 		ft_cpy(itohex(g), (&hexacolor[2]));
 		ft_cpy(itohex(b), (&hexacolor[4]));
 	}
-	else if (action == -1)
-		hexacolor[0] = '\0';
-	else if (action > 0)
+	else
+		return (hexacolor);
+	return (NULL);
+}
+
+char	*get_ceiling_color(int r, int g, int b, bool set)
+{
+	static int	hexacolor;
+
+	if (set)
+		ft_cpy(itohex(r), (&hexacolor[0]));
+	else
 		return (hexacolor);
 	return (NULL);
 }
