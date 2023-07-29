@@ -6,23 +6,17 @@
 #    By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/05 14:46:14 by dafranco          #+#    #+#              #
-#    Updated: 2023/07/27 13:35:09 by jbutte           ###   ########.fr        #
+#    Updated: 2023/07/28 17:59:18 by jbutte           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3d
 
-MY_SOURCES = 	main_test.c										\
-				map_init.c										\
-				map_fill.c										\
-				game.c											\
+MY_SOURCES = 	main.c											\
 				draw.c											\
-				stocker.c 										\
-				movements.c 									\
 				free_structs.c									\
-				utils/get_degree.c								\
 				utils/get_next_valid_line.c						\
-				utils/get_hexa_color.c							\
+				utils/get_texture_path.c						\
 				checker/checker.c								\
 				checker/checker_utils.c							\
 				checker/checker_texture.c						\
@@ -30,6 +24,7 @@ MY_SOURCES = 	main_test.c										\
 				checker/checker_lines_and_columns.c				\
 				data/constructors.c								\
 				data/get_data.c									\
+				data/get_hexa_color.c							\
 				data/get_map_utils.c							\
 				data/get_map.c									\
 				data/get_player.c								\

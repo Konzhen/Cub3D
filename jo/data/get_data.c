@@ -6,7 +6,7 @@
 /*   By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 23:06:30 by jbutte            #+#    #+#             */
-/*   Updated: 2023/07/27 20:31:04 by jbutte           ###   ########.fr       */
+/*   Updated: 2023/07/28 18:04:37 by jbutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,24 +49,16 @@ static bool	get_data_player(t_data *data)
 	data->player = get_player(data->map->tab);
 	if (!data->player)
 		return (true);
-	data->player->info = mlx_new_image(data->mlx_ptr, 10, 10);
-	if (!data->player->info)
-		return (true);
-	mlx_image_to_window(data->mlx_ptr, data->player,
-		data->player->pos_x * 10, data->player->pos_y * 10);
 	return (false);
 }
 
 static bool	get_data_ptr(t_data *data)
 {
-	data->mlx_ptr = mlx_init(1024, 512, "MLX42", true);
+	data->mlx_ptr = mlx_init(WIDTH, HEIGHT, "cub3d", true);
 	if (!data->mlx_ptr)
 		return (true);
-	data->ceilling = mlx_new_image(data->mlx_ptr, HEIGHT, WIDTH);
-	if (!data->ceilling)
-		return (true);
-	data->floor = mlx_new_image(data->mlx_ptr, HEIGHT, WIDTH);
-	if (!data->floor)
+	data->background = mlx_new_image(data->mlx_ptr, WIDTH, HEIGHT);
+	if (!data->background)
 		return (true);
 	return (false);
 }

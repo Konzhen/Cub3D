@@ -6,13 +6,13 @@
 /*   By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 17:07:38 by dafranco          #+#    #+#             */
-/*   Updated: 2023/07/27 13:38:12 by jbutte           ###   ########.fr       */
+/*   Updated: 2023/07/28 18:24:11 by jbutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libcub.h"
 
-void	ft_player(void *param)
+/*void	ft_player(void *param)
 {
 	t_data		data;
 	uint32_t	i;
@@ -49,7 +49,7 @@ void	draw_player(t_data *data)
 	data->player->info = player;
 	player = mlx_new_image(data->mlx_ptr, 10, 10);
 	mlx_image_to_window(data->mlx_ptr, player, 300, 300);
-}
+}*/
 
 int	main(int argc, char **argv)
 {
@@ -64,9 +64,10 @@ int	main(int argc, char **argv)
 	data = get_data(fd, argv[1]);
 	if (!data)
 		return (1);
-	data->map->tab = checker(argv[1]);
-	init_game(data);
-	ft_loops(data);
+	draw_ext(data);
+	mlx_loop_hook(data->mlx_ptr, draw_background, data->background);
+	mlx_loop(data->mlx_ptr);
 	mlx_terminate(data->mlx_ptr);
+	free_data(data);
 	return (EXIT_SUCCESS);
 }

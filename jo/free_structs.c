@@ -6,7 +6,7 @@
 /*   By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 05:02:45 by jbutte            #+#    #+#             */
-/*   Updated: 2023/07/25 22:45:41 by jbutte           ###   ########.fr       */
+/*   Updated: 2023/07/28 18:23:21 by jbutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,10 @@ void	free_player(t_player *player)
 
 void	free_data(t_data *data)
 {
-	/*if (data->mlx_ptr)
-	{
-		mlx_terminate(data->mlx_ptr);
+	if (data->mlx_ptr)
 		free(data->mlx_ptr);
-	}*/
+	if (data->background)
+		free(data->background);
 	if (data->title)
 		free(data->title);
 	if (data->map)

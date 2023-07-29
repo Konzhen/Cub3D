@@ -7,11 +7,11 @@ WE resources/we.jpg
 
 EA resources/ea.jpg
 
-	F 255    , 100, 0
+	F 255    , 0, 0
 
 
 
-    		C 225, 255, 0
+    		C 255, 245, 0
     		
 
      1111

@@ -6,70 +6,30 @@
 /*   By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 00:24:48 by dafranco          #+#    #+#             */
-/*   Updated: 2023/07/27 20:38:46 by jbutte           ###   ########.fr       */
+/*   Updated: 2023/07/28 18:19:35 by jbutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libcub.h"
 
-static void	ft_cpy(char *str1, char *str2)
+uint32_t	get_color_c(int r, int g, int b, int action)
 {
-	int	i;
-	int	j;
-
-	i = 0;
-	j = ft_strlen(str2);
-	while (str1[i])
-	{
-		str2[i + j] = str1[i];
-		i++;
-	}
-	str2[i + j] = '\0';
-	return ;
-}
-
-static char	*itohex(unsigned int nb)
-{
-	static char	hex[3];
-
-	if (hex[1] != '\0')
-	{
-		hex[0] = '\0';
-		hex[1] = '\0';
-		itohex(nb);
-	}
-	if (nb / 16 > 0)
-		itohex(nb / 16);
-	if (nb % 16 >= 10)
-		hex[ft_strlen(hex)] = ('A' + (nb % 16) % 10);
-	else
-		hex[ft_strlen(hex)] = ('0' + (nb % 16));
-	hex[2] = '\0';
-	return (hex);
-}
-
-char	*get_floor_color(int r, int g, int b, bool set)
-{
-	static char	hexacolor[7];
+	static uint32_t	hexacolor;
 
 	if (action == 0)
-	{
-		ft_cpy(itohex(r), (&hexacolor[0]));
-		ft_cpy(itohex(g), (&hexacolor[2]));
-		ft_cpy(itohex(b), (&hexacolor[4]));
-	}
-	else
+		hexacolor = r << 24 | g << 16 | b << 8 | 255;
+	else if (action > 0)
 		return (hexacolor);
-	return (NULL);
+	return (0);
 }
 
-char	*get_ceiling_color(int r, int g, int b, bool set)
+uint32_t	get_color_f(int r, int g, int b, int action)
 {
-	static int	hexacolor;
+	static uint32_t	hexacolor;
 
-	if (set)
-		ft_cpy(itohex(r), (&hexacolor[0]));
-	else
+	if (action == 0)
+		hexacolor = r << 24 | g << 16 | b << 8 | 255;
+	else if (action > 0)
 		return (hexacolor);
-	return (NULL);
+	return (0);
 }

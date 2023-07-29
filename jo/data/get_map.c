@@ -6,13 +6,13 @@
 /*   By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 18:41:32 by jbutte            #+#    #+#             */
-/*   Updated: 2023/07/26 17:46:41 by jbutte           ###   ########.fr       */
+/*   Updated: 2023/07/28 16:59:08 by jbutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libcub.h"
 
-static bool	set_colors(int fd, bool floor)
+static bool	set_colors(int fd, bool is_floor)
 {
 	char	*line;
 	int		i;
@@ -29,10 +29,10 @@ static bool	set_colors(int fd, bool floor)
 	g = get_color_value(line, &i);
 	b = get_color_value(line, &i);
 	free(line);
-	if (floor)
-		get_floor_color(r, g, b, 0);
+	if (is_floor)
+		get_color_f(r, g, b, 0);
 	else
-		get_ceiling_color(r, g, b, 0);
+		get_color_c(r, g, b, 0);
 	return (false);
 }
 

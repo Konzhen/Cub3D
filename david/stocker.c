@@ -12,9 +12,6 @@
 
 #include "libcub.h"
 
-static char	*itohex(unsigned int nb);
-static void	ft_cpy(char *str1, char *str2);
-
 uint32_t	get_color_c(int r, int g, int b, int action)
 {
 	static uint32_t	hexacolor;
@@ -26,7 +23,7 @@ uint32_t	get_color_c(int r, int g, int b, int action)
 	return (0);
 }
 
-uint32_t	stocker_color_f(int r, int g, int b, int action)
+uint32_t	get_color_f(int r, int g, int b, int action)
 {
 	static uint32_t	hexacolor;
 

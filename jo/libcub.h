@@ -6,7 +6,7 @@
 /*   By: jbutte <jbutte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 14:38:40 by dafranco          #+#    #+#             */
-/*   Updated: 2023/07/27 20:03:05 by jbutte           ###   ########.fr       */
+/*   Updated: 2023/07/28 17:55:24 by jbutte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@
 //	- 							VARIABLES									//
 //--------------------------------------------------------------------------//
 
-# define WIDTH 860
-# define HEIGHT 840
+# define WIDTH 900
+# define HEIGHT 600
 # define PI 3.1415926535
 # define STOCK_ACTION = 0
 # define RESET_ACTION = -1
@@ -66,7 +66,6 @@ typedef struct s_ray
 
 typedef struct s_player
 {
-	mlx_image_t			*info;
 	char				start;
 	double				pos_x;
 	double				pos_y;
@@ -91,9 +90,8 @@ typedef struct s_map
 
 typedef struct s_data
 {
+	mlx_image_t			*background;
 	void				*mlx_ptr;
-	mlx_image_t			*floor;
-	mlx_image_t			*ceilling;
 	char				*title;
 	struct s_map		*map;
 	struct s_player		*player;
@@ -110,7 +108,8 @@ void					fill_tab(char **blueprint, char ***tab, size_t y);
 char					*fill_line(const char *str);
 
 //	draw.c
-void					draw_floor_and_ceiling(t_data *data);
+void					draw_ext(t_data *data);
+void					draw_background(void *param);
 
 //	main.c
 void					draw_player(t_data *mlx);
@@ -137,9 +136,8 @@ void					free_map(t_map *map);
 void					free_player(t_player *player);
 void					free_data(t_data *data);
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~./checker/
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~./utils/
 
-double					get_degree(double pi_rate);
 char					*get_next_valid_line(int fd);
 char					*get_texture_path(char *line, int *i);
 
@@ -174,8 +172,8 @@ t_data					*data_constructor(void);
 t_data					*get_data(int fd, char *argv_1);
 
 //	get_hexa_color.c
-char					*get_floor_color(int r, int g, int b, bool set);
-char					*get_ceiling_color(int r, int g, int b, bool set);
+uint32_t				get_color_c(int r, int g, int b, int action);
+uint32_t				get_color_f(int r, int g, int b, int action);
 
 //	get_player.c
 t_player				*get_player(char **tab);
